@@ -1,5 +1,11 @@
-from handler import AbstractHandler
+from .handler import AbstractHandler
 
 class TimeStamper(AbstractHandler):
     def handle(self, request):
-        pass
+        print("TimeStamper handling the request "+str(request))
+
+        request.remarks += "timestamper;"
+        result = request
+
+
+        return super().handle(result)

@@ -3,6 +3,7 @@ class Query:
         self._id = id
         self._season = season
         self._episode = episode
+        self.remarks = "" #! remove
 
     @staticmethod
     def toDict(plain):

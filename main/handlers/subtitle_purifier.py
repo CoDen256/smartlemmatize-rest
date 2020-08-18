@@ -1,5 +1,10 @@
-from handlers.handler import AbstractHandler
+from .handler import AbstractHandler
 
 class SubtitlePurifier(AbstractHandler):
     def handle(self, request):
-        pass
+        print("SubtitlePurifier handling the request "+str(request))
+
+        request.remarks += "subtitlepurifier;"
+        result = request
+
+        return super().handle(result)
