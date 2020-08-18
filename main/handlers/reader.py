@@ -2,4 +2,6 @@ from .handler import AbstractHandler
 
 class Reader(AbstractHandler):
     def handle(self, request):
-        pass
+        print("Reader handles request",  request)
+
+        return super.handle(request)

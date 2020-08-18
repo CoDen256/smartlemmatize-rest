@@ -1,9 +1,10 @@
 class Query:
     def __init__(self, id, season, episode):
-        self.id = id
-        self.season = season
-        self.episode = episode
+        self._id = id
+        self._season = season
+        self._episode = episode
 
+    @staticmethod
     def toDict(plain):
         q = plain.split("&")
         result = {}
@@ -13,6 +14,7 @@ class Query:
 
         return result
 
+    @staticmethod
     def of(plain):
         try:
             d = Query.toDict(plain)
@@ -21,3 +23,7 @@ class Query:
                          episode=d["e"])
         except:
             raise Exception("Illegal arguments")
+
+        
+    def __str__(self):
+        return f"Query({self._id}, {self._season}, {self._episode})"

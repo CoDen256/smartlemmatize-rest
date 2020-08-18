@@ -4,7 +4,7 @@ from data.query import Query
 from handlers.lemma_connector import LemmaConnector
 from handlers.lemma_fetcher import LemmaFetcher
 from handlers.subtitle_fetcher import SubtitleFetcher
-from handlers.subtitle_porifier import SubtitlePurifier
+from handlers.subtitle_purifier import SubtitlePurifier
 from handlers.reader import Reader
 from handlers.writer import Writer
 from handlers.time_stamper import TimeStamper

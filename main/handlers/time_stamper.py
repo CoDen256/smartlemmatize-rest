@@ -1,5 +1,5 @@
 from handler import AbstractHandler
 
-class LemmaConnector(AbstractHandler):
+class TimeStamper(AbstractHandler):
     def handle(self, request):
         pass

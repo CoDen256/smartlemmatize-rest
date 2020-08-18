@@ -1,4 +1,4 @@
-from .handler import AbstractHandler
+from handlers.handler import AbstractHandler
 
 class SubtitlePurifier(AbstractHandler):
     def handle(self, request):
