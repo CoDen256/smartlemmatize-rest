@@ -1,7 +1,8 @@
 from core.handlers.handler import AbstractHandler
 from core.resource_manager import ResourceManager
+from core.files.reader import Reader
 
-class Loader(AbstractHandler):
+class ResourceLoader(AbstractHandler):
     def __init__(self, resource):
         self.resource = resource
 
@@ -10,7 +11,6 @@ class Loader(AbstractHandler):
 
         path = ResourceManager.path(self.resource, request)
 
-        with open(path, mode="r", encoding='utf-8-sig') as f:
-            request.setContent(f.read())
+        request.setContent(Reader.read_text(path))
 
         return super().handle(request)

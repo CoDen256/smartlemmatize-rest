@@ -4,6 +4,8 @@ from core.handlers import *
 
 from core.providers import *
 
+from core.files import Writer
+
 from core.resource_manager import ResourceManager
 from core.utils import assertType
 
@@ -16,10 +18,10 @@ class SubtitleLemmatizer:
 
         manager = ResourceManager()
 
-        srt_loader = Loader(manager.SRT)
+        srt_loader = ResourceLoader(manager.SRT)
         srt_branch = SubtitleFetcher()
 
-        ltc_loader = Loader(manager.LTC)
+        ltc_loader = ResourceLoader(manager.LTC)
         ltc_branch = SubtitlePurifier()
 
         ltc_branch.link(LemmaFetcher()).link(LemmaConnector()).link(TimeStamper()).link(JSONTranslator())
@@ -34,7 +36,7 @@ class SubtitleLemmatizer:
 
         ltc.link(srt)
         r = ltc.handle(query)
-        print("REMARKS", r.chain)
+        print("\nCHAIN: ", r.chain)
         return r.getContent()
 
 def main(id, e, s):
@@ -45,7 +47,7 @@ def main(id, e, s):
     sublem = SubtitleLemmatizer()
     result = sublem.lemmatize(query)
 
-    #print("SubLem:",result)
+    Writer.write_text("result", result)
 
 
 main("0898266",1,1)

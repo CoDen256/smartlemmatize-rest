@@ -36,7 +36,7 @@ class Request:
 
     def handledBy(self, handler):
 
-        print(handler, "handling the request", str(self))
+        print("[", handler, "] just handled the request", str(self))
 
         self.chain.append(handler)
     def __str__(self):

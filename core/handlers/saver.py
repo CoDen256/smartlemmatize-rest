@@ -1,7 +1,8 @@
 from core.handlers.handler import AbstractHandler
 from core.resource_manager import ResourceManager
+from core.files.writer import Writer
 
-class Saver(AbstractHandler):
+class ResourceSaver(AbstractHandler):
     def __init__(self, resource):
         self.resource = resource
 
@@ -10,7 +11,6 @@ class Saver(AbstractHandler):
 
         path = ResourceManager.path(self.resource, request)
 
-        with open(path, mode="w", encoding='utf-8-sig') as f:
-            f.write(request.getContent())
+        Writer.write_text(path, request.getContent())
 
         return super().handle(result)
