@@ -30,9 +30,10 @@ class SubtitleLemmatizer:
 
         ltc_branch.link(Splitter(CabWebService.MAX_LENGTH))\
         .link(LemmaFetcher())\
+        .link(JSONTranslator(Content.JSON, Content.POS))\
         .link(LemmaConnector())\
         .link(TimeStamper())\
-        .link(JSONTranslator())\
+        #.link(JSONTranslator())\
 
         srt = SRTProvider(manager,
                           srt_loader,
