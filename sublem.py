@@ -1,6 +1,11 @@
 from core.data import Request
+
 from core.handlers import *
+
 from core.providers import *
+
+from core.handlers.subtitle_purifier import ALL
+
 from core.files import Writer
 
 from core.services.cab_web_service import CabWebService
@@ -21,7 +26,7 @@ class SubtitleLemmatizer:
         srt_branch = SubtitleFetcher()
 
         ltc_loader = ResourceLoader(manager.LTC)
-        ltc_branch = SubtitlePurifier()
+        ltc_branch = SubtitlePurifier(ALL)
 
         ltc_branch.link(Splitter(CabWebService.MAX_LENGTH))\
         .link(LemmaFetcher())\
