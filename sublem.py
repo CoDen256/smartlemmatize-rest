@@ -55,7 +55,7 @@ def main(id, e, s):
     sublem = SubtitleLemmatizer()
     result = sublem.lemmatize(query)
 
-    Writer.write("result", result)
+    Writer.write("result.txt", result)
 
 
 main("0898266",1,1)
