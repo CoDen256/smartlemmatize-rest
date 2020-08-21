@@ -1,7 +1,10 @@
 from core.handlers.handler import AbstractHandler
+from core.files.writer import Writer
 
 class SubtitleFetcher(AbstractHandler):
     def handle(self, request):
-        result = request
+        result = request.getContent()
 
-        return super().handle(result)
+        request.setContent(result)
+
+        return super().handle(request)

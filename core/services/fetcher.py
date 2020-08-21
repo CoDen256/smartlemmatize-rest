@@ -1,21 +1,22 @@
 import grequests
-
+import requests
+from core.utils import assertType
 class Fetcher:
     @staticmethod
-    def fetch(*urls, **kwargs):
-        print("Fetching async urls:", urls)
-        responses = (grequests.get(u, **kwargs) for u in urls)
+    def fetch(*urls):
+        for u in urls:
+            assertType("URL", u, str)
+            print("Fetching async url:", u[:100])
 
-        return grequests.map(responses)
+        requests = (grequests.get(u) for u in urls)
+        responses = grequests.map(requests, exception_handler=lambda r, e: print("EXCEPTION OCCURED WHILE FETCHING",r, e))
+
+        print("Responses", responses)
+        return responses
 
     @staticmethod
-    def fetchOne(url, **kwargs):
+    def fetchOne(url):
         print("Fetching url:", url)
-        request = grequests.get(url, **kwargs)
-
-        response = grequests.map([request])
-
-        #if (response is not None and not response.ok):
-        #    print("Response is not ok", response, reponse.reason)
-        print("RESPONSE", response)
+        response = requests.get(url)
+        print("Response", response)
         return response

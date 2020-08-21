@@ -3,15 +3,27 @@ from core.services.fetcher import Fetcher
 class CabWebService:
     API = "http://www.deutschestextarchiv.de/demo/cab/query?a=caberr&fmt=json&clean=1&q={query}"
     MAX_LENGTH = 1745 
+    DEVIATION = 1 # can happen because of new lines 1-2 symbols
 
     @staticmethod
     def fetch(sentences):
-        if any([len(s) > CabWebService.MAX_LENGTH for s in sentences]):
+        if any([len(s) > CabWebService.MAX_LENGTH + CabWebService.DEVIATION for s in sentences]):
             raise Exception("Length of sentence is exceeded, url will not be fethced, abort")
         
-        responses = Fetcher.fetch([API.format(s) for s in sentences])
+        if (isinstance(sentences, str)):
+            raise Exception("Sentences is string, abort")
 
-        if any([not r.ok for r in responses]):
-            raise Exception("One chunk was not fetched successfully, abort")
+        responses = Fetcher.fetch(*[CabWebService.API.format(query=s) for s in sentences])
+
+        if any([r == None or not r.ok for r in responses]):
+            raise Exception("Chunks was not fetched successfully, abort")
         
         return [r.json() for r in responses]
+
+    def fetchOne(query):
+        response = Fetcher.fetchOne(CabWebService.API.format(query=query))
+
+        if response == None or not response.ok:
+            raise Exception("Query was not fetched successfully, abort")
+            
+        return response.json()
