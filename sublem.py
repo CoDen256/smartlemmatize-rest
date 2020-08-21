@@ -1,10 +1,9 @@
 from core.data import Request
-
 from core.handlers import *
-
 from core.providers import *
-
 from core.files import Writer
+
+from core.services.cab_web_service import CabWebService
 
 from core.resource_manager import ResourceManager
 from core.utils import assertType
@@ -24,7 +23,11 @@ class SubtitleLemmatizer:
         ltc_loader = ResourceLoader(manager.LTC)
         ltc_branch = SubtitlePurifier()
 
-        ltc_branch.link(LemmaFetcher()).link(LemmaConnector()).link(TimeStamper()).link(JSONTranslator())
+        ltc_branch.link(Splitter(CabWebService.MAX_LENGTH))\
+        .link(LemmaFetcher())\
+        .link(LemmaConnector())\
+        .link(TimeStamper())\
+        .link(JSONTranslator())\
 
         srt = SRTProvider(manager,
                           srt_loader,
@@ -47,7 +50,7 @@ def main(id, e, s):
     sublem = SubtitleLemmatizer()
     result = sublem.lemmatize(query)
 
-    Writer.write_text("result", result)
+    Writer.write("result", result)
 
 
 main("0898266",1,1)
