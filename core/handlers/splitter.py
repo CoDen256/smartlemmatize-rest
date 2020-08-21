@@ -3,8 +3,9 @@ from core.files.writer import Writer
 import re
 
 class Splitter(AbstractHandler):
-    def __init__(self, limit=None):
+    def __init__(self, limit=None, decapitalize=False):
         self.limit = limit
+        self.decapitalize = decapitalize
 
     def handle(self, request):
         result = self.split(request.getContent(), self.limit)
@@ -20,10 +21,16 @@ class Splitter(AbstractHandler):
         if limit is None: raise Exception("Limit for splitting was not specified, abort")
         temp = [""]
         for line in pure.split("\n"):
-            if len(temp[-1]) + len(line) > limit:
-                temp.append(line+"\n")
+            result_line = line.strip()
+            if len(result_line) <= 1: continue
+
+            if self.decapitalize:
+                result_line = result_line[0].lower() + result_line[1:]
+
+            if len(temp[-1]) + len(result_line) > limit:
+                temp.append(result_line+"\n")
             else:
-                temp[-1] = temp[-1] + line + "\n"
+                temp[-1] = temp[-1] + result_line + "\n"
 
         return temp
 

@@ -28,7 +28,7 @@ class SubtitleLemmatizer:
         ltc_loader = ResourceLoader(manager.LTC)
         ltc_branch = SubtitlePurifier(ALL)
 
-        ltc_branch.link(Splitter(CabWebService.MAX_LENGTH))\
+        ltc_branch.link(Splitter(CabWebService.MAX_LENGTH, decapitalize=True))\
         .link(LemmaFetcher())\
         .link(JSONTranslator(Content.JSON, Content.POS))\
         .link(LemmaConnector())\
