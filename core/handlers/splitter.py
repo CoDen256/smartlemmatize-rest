@@ -9,8 +9,8 @@ class Splitter(AbstractHandler):
     def handle(self, request):
         result = self.split(request.getContent(), self.limit)
 
-        Writer.write_iter("splitted.txt", self.beautify(result))
-
+        Writer.write_iter("2_splitted.txt", self.beautify(result))
+        print(f"SPLITED INTO {len(result)} chunks")
         request.setContent(self.toQueries(result))
 
         return super().handle(request)
@@ -18,7 +18,6 @@ class Splitter(AbstractHandler):
 
     def split(self, pure, limit):
         if limit is None: raise Exception("Limit for splitting was not specified, abort")
-
         temp = [""]
         for line in pure.split("\n"):
             if len(temp[-1]) + len(line) > limit:
