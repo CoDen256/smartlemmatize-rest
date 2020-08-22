@@ -24,16 +24,15 @@ ALL = TIME_CODES | \
       SPLIT | \
       STRIP 
 
+#TODO HANDLERS AND EXECUTORS SEPARATE
 class SubtitlePurifier(AbstractHandler):
 
     def __init__(self, stages=None):
-        self.stages = stages
+        self.stages = ALL if stages == None else stages
         self.result = None
 
     def handle(self, request):
-        self.result = request.getContent()
-
-        self.purify(self.stages)
+        self.purify(request.getContent())
         
         request.setContent(self.result)
 
@@ -41,22 +40,22 @@ class SubtitlePurifier(AbstractHandler):
 
         return super().handle(request)
 
-    def purify(self, stages=None):
-        stages = ALL if stages == None else stages
-        
-        self.checkExecute(stages, TIME_CODES, self.removeTimeCodes)
-        self.checkExecute(stages, ADS, self.removeAd)
-        self.checkExecute(stages, REMARKS, self.removeScriptRemarks)
-        self.checkExecute(stages, TRIPLE_DOTS, self.removeTripleDots)
-        self.checkExecute(stages, TAGS, self.removeTags)
-        self.checkExecute(stages, NAMES, self.removeSpeakingNames)
-        self.checkExecute(stages, DIALOG, self.removeDialogMarkers)
-        self.checkExecute(stages, NEW_LINES, self.removeNewLines)
-        self.checkExecute(stages, SPLIT, self.newLinePerSentence)
-        self.checkExecute(stages, STRIP, self.stripLines)
+    def purify(self, toPurify):
+        self.result = toPurify
+
+        self.checkExecute(TIME_CODES, self.removeTimeCodes)
+        self.checkExecute(ADS, self.removeAd)
+        self.checkExecute(REMARKS, self.removeScriptRemarks)
+        self.checkExecute(TRIPLE_DOTS, self.removeTripleDots)
+        self.checkExecute(TAGS, self.removeTags)
+        self.checkExecute(NAMES, self.removeSpeakingNames)
+        self.checkExecute(DIALOG, self.removeDialogMarkers)
+        self.checkExecute(NEW_LINES, self.removeNewLines)
+        self.checkExecute(SPLIT, self.newLinePerSentence)
+        self.checkExecute(STRIP, self.stripLines)
     
-    def checkExecute(self, stages, bit, callback):
-        if stages & bit: callback()
+    def checkExecute(self, bit, callback):
+        if self.stages & bit: callback()
 
     def removeTimeCodes(self):
         res = self.result

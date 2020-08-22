@@ -25,6 +25,10 @@ class SubtitleLemmatizer:
         srt_loader = ResourceLoader(manager.SRT)
         srt_branch = SubtitleFetcher()
 
+        srt = SRTProvider(manager,
+                          srt_loader,
+                          srt_branch)
+
         ltc_loader = ResourceLoader(manager.LTC)
         ltc_branch = SubtitlePurifier(ALL)
 
@@ -32,12 +36,8 @@ class SubtitleLemmatizer:
         .link(LemmaFetcher())\
         .link(JSONTranslator(Content.JSON, Content.POS))\
         .link(LemmaConnector())\
-        .link(TimeStamper())\
+        .link(TimeStamper(srt))\
         #.link(JSONTranslator())\
-
-        srt = SRTProvider(manager,
-                          srt_loader,
-                          srt_branch)
 
         ltc = LTCProvider(manager,
                           ltc_loader,
