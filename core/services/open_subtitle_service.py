@@ -1,4 +1,4 @@
-from fetcher import Fetcher
+from core.services.fetcher import Fetcher
 from core.data.request import Request
 from core.utils import assertType
 

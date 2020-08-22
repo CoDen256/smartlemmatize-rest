@@ -7,6 +7,6 @@ class SubtitleFetcher(AbstractHandler):
         result = OpenSubtitleService.fetch(request)
 
         request.setContent(result)
-        Writer.write_bin("0_subtitles.gzip")
+        Writer.write_bin("0_subtitles.gz", result)
 
         return super().handle(request)

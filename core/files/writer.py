@@ -12,14 +12,6 @@ class Writer:
             f.write(content)
         return content
 
-    def write(filename, content):
-        if isinstance(content, str):
-            return Writer.write_text(filename, content)
-        elif isinstance(content, Iterable):
-            return Writer.write_iter(filename, content)
-        else:
-            return Writer.write_bin(filename, content)
-
     @staticmethod
     def write_text(filename, content):
         print("[Wrtiting to ", filename, "]")

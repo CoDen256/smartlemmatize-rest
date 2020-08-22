@@ -7,3 +7,4 @@ from core.handlers.subtitle_purifier import SubtitlePurifier
 from core.handlers.subtitle_fetcher import SubtitleFetcher
 from core.handlers.time_stamper import TimeStamper
 from core.handlers.splitter import Splitter
+from core.handlers.unzipper import Unzipper

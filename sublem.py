@@ -5,7 +5,6 @@ from core.handlers import *
 from core.providers import *
 
 from core.handlers.subtitle_purifier import ALL
-
 from core.files import Writer
 
 from core.services.cab_web_service import CabWebService
@@ -25,14 +24,18 @@ class SubtitleLemmatizer:
         srt_loader = ResourceLoader(manager.SRT)
         srt_branch = SubtitleFetcher()
 
+        srt_branch.link(Unzipper())\
+        .link(ResourceSaver(manager.SRT, mode="wb"))
+
+
         ltc_loader = ResourceLoader(manager.LTC)
         ltc_branch = SubtitlePurifier(ALL)
 
-        ltc_branch.link(Splitter(CabWebService.MAX_LENGTH, decapitalize=True))\
-        .link(LemmaFetcher())\
-        .link(JSONTranslator(Content.JSON, Content.POS))\
-        .link(LemmaConnector())\
-        .link(TimeStamper())\
+        #ltc_branch.link(Splitter(CabWebService.MAX_LENGTH))\
+        #.link(LemmaFetcher())\
+        #.link(JSONTranslator(Content.JSON, Content.POS))\
+        #.link(LemmaConnector())\
+        #.link(TimeStamper())\
         #.link(JSONTranslator())\
 
         srt = SRTProvider(manager,
