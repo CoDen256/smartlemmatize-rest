@@ -1,4 +1,4 @@
-from core.handlers.handler import AbstractHandler
+from core.handlers.abstract_handlers import AbstractHandler
 from core.handlers.subtitle_purifier import ALL, TIME_CODES, NEW_LINES, SPLIT, STRIP, SubtitlePurifier
 from core.data.timecode import LemmatizedTimeCode
 from core.utils import log, logProcess, log

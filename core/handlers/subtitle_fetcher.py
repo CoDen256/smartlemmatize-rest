@@ -1,7 +1,5 @@
-from core.handlers.handler import AbstractHandler
-from core.utils import log
-from core.files import BYTE
-from core.services.open_subtitle_service import OpenSubtitleService
+from core.handlers.abstract_handlers import AbstractHandler
+from core.executors.web_services import OpenSubtitleService
 
 class SubtitleFetcher(AbstractHandler):
     def handle(self, request):

@@ -23,21 +23,63 @@
       <path>
         <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
         <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="BRANCH:master" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:merging_resolving" type="e8cecc67:BranchNodeDescriptor" />
       </path>
     </select>
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bda5709b-c953-450f-be6f-84097900e27d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_21_08_2020_20_41__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_21_08_2020_20_41__Default_Changelist_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Default_Changelist_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/data/enums.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/executors/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/executors/abstract_executor.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/executors/files/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/executors/files/decoder.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/executors/files/unzipper.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sub_remover.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/test_decoder.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/test_writer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/SubtitleLemmatizer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/SubtitleLemmatizer.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/data/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/data/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/data/request.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/data/request.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/files/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/files/reader.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/executors/files/reader.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/files/writer.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/executors/files/writer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/handlers/handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/handlers/abstract_handlers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/handlers/json_translator.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/handlers/json_translator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/handlers/lemma_connector.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/handlers/lemma_connector.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/handlers/lemma_fetcher.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/handlers/lemma_fetcher.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/handlers/loader.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/handlers/loader.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/handlers/saver.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/handlers/saver.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/handlers/splitter.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/handlers/splitter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/handlers/subtitle_fetcher.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/handlers/subtitle_fetcher.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/handlers/subtitle_purifier.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/handlers/subtitle_purifier.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/handlers/time_stamper.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/handlers/time_stamper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/handlers/unzipper.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/handlers/unzipper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/providers/ltc_provider.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/providers/ltc_provider.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/providers/srt_provider.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/providers/srt_provider.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/services/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/services/cab_web_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/executors/web_services/cab_web_service.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/services/fetcher.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/executors/web_services/fetcher.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/services/open_subtitle_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/executors/web_services/open_subtitle_service.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers.drawio" beforeDir="false" afterPath="$PROJECT_DIR$/handlers.drawio" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/srt/script_0898266_s1_ep1.srt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sublem.py" beforeDir="false" afterPath="$PROJECT_DIR$/sublem.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+        <option value="Python Unit Test" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -49,6 +91,9 @@
     <option name="RESET_MODE" value="MIXED" />
   </component>
   <component name="ProjectId" id="1gPyAGWbEUxgre4YuTWAELP6Kfn" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -57,8 +102,121 @@
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="configurable.group.project" />
+    <property name="add_unversioned_files" value="$PROJECT_DIR$/test/gzipper_test.py&#10;D:/Programming/Python/Main Projects/SubtitleLemmatizer/test/test_gzipper.py" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/test" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Programming\Python\Main Projects\SubtitleLemmatizer\test" />
+      <recent name="D:\Programming\Python\Main Projects\SubtitleLemmatizer\test\executors" />
+      <recent name="D:\Programming\Python\Main Projects\SubtitleLemmatizer\core\executors\files" />
+      <recent name="D:\Programming\Python\Main Projects\SubtitleLemmatizer\core\executors" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python tests.Unittests">
+    <configuration name="Remover" type="PythonConfigurationType" factoryName="Python">
+      <module name="SubtitleLemmatizer" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\denbl\AppData\Local\Programs\Python\Python36\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/sub_remover.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="sublem" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="SubtitleLemmatizer" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\denbl\AppData\Local\Programs\Python\Python36\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/sublem.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="utils" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="SubtitleLemmatizer" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/core" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/utils.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Unittests in test_gzipper.py" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <module name="SubtitleLemmatizer" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/test" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/test/test_gzipper.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Unittests" type="tests" factoryName="Unittests">
+      <module name="SubtitleLemmatizer" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="C:\Users\denbl\AppData\Local\Programs\Python\Python36\python.exe" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_pattern" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/test&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Python.sublem" />
+      <item itemvalue="Python.Remover" />
+      <item itemvalue="Python tests.Unittests" />
+      <item itemvalue="Python tests.Unittests in test_gzipper.py" />
+      <item itemvalue="Python.utils" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.utils" />
+        <item itemvalue="Python tests.Unittests in test_gzipper.py" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -90,7 +248,14 @@
       <option name="project" value="LOCAL" />
       <updated>1598030980382</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Connect all handlers, add json encoder">
+      <created>1598101316729</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1598101316729</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -104,7 +269,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="master" />
+                        <option value="merging_resolving" />
                       </list>
                     </value>
                   </entry>
@@ -120,17 +285,50 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Add intellij support" />
     <MESSAGE value="Reinitialize" />
-    <option name="LAST_COMMIT_MESSAGE" value="Reinitialize" />
+    <MESSAGE value="Connect all handlers, add json encoder" />
+    <option name="LAST_COMMIT_MESSAGE" value="Connect all handlers, add json encoder" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="392" y="71" key="#Plugins" timestamp="1598106078009">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="392" y="71" key="#Plugins/0.0.1600.860@0.0.1600.860" timestamp="1598106078009" />
+    <state x="254" y="74" width="1092" height="786" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1598121559633">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="254" y="74" width="1092" height="786" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1600.860@0.0.1600.860" timestamp="1598121559633" />
+    <state x="561" y="232" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1598121742240">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="561" y="232" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1600.860@0.0.1600.860" timestamp="1598121742240" />
+    <state x="605" y="146" key="#com.intellij.ide.util.MemberChooser" timestamp="1598111712039">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="605" y="146" key="#com.intellij.ide.util.MemberChooser/0.0.1600.860@0.0.1600.860" timestamp="1598111712039" />
     <state x="92" y="92" width="1416" height="676" key="DiffContextDialog" timestamp="1598085568471">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="92" y="92" width="1416" height="676" key="DiffContextDialog/0.0.1600.860@0.0.1600.860" timestamp="1598085568471" />
-    <state x="580" y="185" key="FileChooserDialogImpl" timestamp="1598030885497">
+    <state x="580" y="185" key="FileChooserDialogImpl" timestamp="1598118193194">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="580" y="185" key="FileChooserDialogImpl/0.0.1600.860@0.0.1600.860" timestamp="1598030885497" />
+    <state x="580" y="185" key="FileChooserDialogImpl/0.0.1600.860@0.0.1600.860" timestamp="1598118193194" />
+    <state width="1579" height="198" key="GridCell.Tab.0.bottom" timestamp="1598122225610">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state width="1579" height="198" key="GridCell.Tab.0.bottom/0.0.1600.860@0.0.1600.860" timestamp="1598122225610" />
+    <state width="1579" height="198" key="GridCell.Tab.0.center" timestamp="1598122225609">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state width="1579" height="198" key="GridCell.Tab.0.center/0.0.1600.860@0.0.1600.860" timestamp="1598122225609" />
+    <state width="1579" height="198" key="GridCell.Tab.0.left" timestamp="1598122225609">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state width="1579" height="198" key="GridCell.Tab.0.left/0.0.1600.860@0.0.1600.860" timestamp="1598122225609" />
+    <state width="1579" height="198" key="GridCell.Tab.0.right" timestamp="1598122225610">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state width="1579" height="198" key="GridCell.Tab.0.right/0.0.1600.860@0.0.1600.860" timestamp="1598122225610" />
     <state x="152" y="68" key="MergeDialog" timestamp="1598092624386">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
@@ -139,10 +337,10 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="438" y="191" key="MultipleFileMergeDialog/0.0.1600.860@0.0.1600.860" timestamp="1598092628877" />
-    <state x="301" y="75" key="SettingsEditor" timestamp="1598030713404">
+    <state x="301" y="75" key="SettingsEditor" timestamp="1598118320168">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="301" y="75" key="SettingsEditor/0.0.1600.860@0.0.1600.860" timestamp="1598030713404" />
+    <state x="301" y="75" key="SettingsEditor/0.0.1600.860@0.0.1600.860" timestamp="1598118320168" />
     <state x="92" y="92" width="1416" height="676" key="ShowDiffWithBranchDialog" timestamp="1598085568472">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
@@ -151,9 +349,9 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="392" y="163" key="Vcs.Push.Dialog.v2/0.0.1600.860@0.0.1600.860" timestamp="1598030984588" />
-    <state x="463" y="180" width="672" height="678" key="search.everywhere.popup" timestamp="1598030699521">
+    <state x="463" y="180" width="672" height="678" key="search.everywhere.popup" timestamp="1598106242703">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="463" y="180" width="672" height="678" key="search.everywhere.popup/0.0.1600.860@0.0.1600.860" timestamp="1598030699521" />
+    <state x="463" y="180" width="672" height="678" key="search.everywhere.popup/0.0.1600.860@0.0.1600.860" timestamp="1598106242703" />
   </component>
 </project>

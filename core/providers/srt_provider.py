@@ -1,4 +1,4 @@
-from core.handlers.handler import ResourceHandler
+from core.handlers.abstract_handlers import ResourceHandler
 from core.resource_manager import ResourceManager
 
 class SRTProvider(ResourceHandler):

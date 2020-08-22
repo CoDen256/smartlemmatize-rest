@@ -1,8 +1,9 @@
 from core.data.request import Request
-from core.utils import assertType
+from core.utils import assert_type
+
 
 class OpenSubtitleService:
-    URL = f"https://rest.opensubtitles.org/search/"+\
+    URL = f"https://rest.opensubtitles.org/search/" + \
           "episode-{EPISODE}/imdbid-{ID}/season-{SEASON}/sublanguageid-ger"
 
     HEADERS = {"X-User-Agent": "codenua"}
@@ -10,21 +11,21 @@ class OpenSubtitleService:
 
     @staticmethod
     def fetch(request):
-        from core.services.fetcher import Fetcher
+        from core.executors.web_services.fetcher import Fetcher
         assertType("request to fetch", request, Request)
-        result_url = OpenSubtitleService.URL.format(EPISODE = request.episode,
-                                SEASON = request.season,
-                                ID = request.id)
+        result_url = OpenSubtitleService.URL.format(EPISODE=request.episode,
+                                                    SEASON=request.season,
+                                                    ID=request.id)
 
         response = Fetcher.fetchOne(result_url, headers=OpenSubtitleService.HEADERS)
 
-        if (response is None or not response.ok):
+        if response is None or not response.ok:
             raise Exception("Unable to fetch opensubtitles link, abort")
         link = OpenSubtitleService.find_download_link(response.json())
 
         download_reponse = Fetcher.fetchOne(link, headers=OpenSubtitleService.HEADERS)
 
-        if (download_reponse is None or not download_reponse.ok):
+        if download_reponse is None or not download_reponse.ok:
             raise Exception("Unable to fetch download opensubtitles link, abort")
 
         return download_reponse.content

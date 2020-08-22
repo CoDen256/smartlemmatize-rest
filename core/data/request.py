@@ -1,4 +1,4 @@
-from core.utils import logProcess
+from core.utils import log_process
 class Request:
     def __init__(self, id, season, episode):
         self.id = id

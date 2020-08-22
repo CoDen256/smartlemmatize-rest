@@ -1,4 +1,4 @@
-from core.handlers.handler import AbstractHandler
+from core.handlers.abstract_handlers import AbstractHandler
 from core.utils import log
 from core.files import BYTE
 import gzip

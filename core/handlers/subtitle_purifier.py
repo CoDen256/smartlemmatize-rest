@@ -1,4 +1,4 @@
-from core.handlers.handler import AbstractHandler
+from core.handlers.abstract_handlers import AbstractHandler
 from core.utils import log, assertType
 from core.data import Request
 
@@ -25,8 +25,9 @@ ALL = TIME_CODES | \
       NEW_LINES | \
       SPLIT | \
       STRIP 
-
+#.replace("\r", "")
 #TODO HANDLERS AND EXECUTORS SEPARATE
+#TODO RUN MULTIPLE REGEX .SUB, AT ONE TIME
 class SubtitlePurifier(AbstractHandler):
 
     def __init__(self, stages=None):

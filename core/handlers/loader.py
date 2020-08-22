@@ -1,6 +1,6 @@
-from core.handlers.handler import AbstractHandler
+from core.handlers.abstract_handlers import AbstractHandler
 from core.resource_manager import ResourceManager
-from core.files.reader import Reader
+from core.executors.files.reader import Reader
 from core.utils import logProcess
 
 class ResourceLoader(AbstractHandler):

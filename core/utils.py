@@ -1,16 +1,21 @@
-from datetime import datetime
-from core.files.writer import Writer, ANY, DEFAULT_ENCODING
+from core.executors.files.writer import Writer
 
-def assertType(context, current, expected):
-    if not isinstance(current, expected):
-        raise Exception(f"{context} expected to be {expected.__name__} but got {type(current).__name__}")
+BYTE, RAW, PRETTY = 1, 2, 4
+DEFAULT_ENCODING = "utf-8-sig"
+
+
+def assert_type(context, current, expected):
+    if not isinstance(current, expected) or current is None:
+        raise TypeError(f"{context} expected to be {expected.__name__} but got {type(current).__name__}")
     return current
 
-def log(source, info, content_type=ANY):
-    dest = "log/"+source
+
+def log(source, info, content_type=RAW):
+    dest = "log/" + source
     Writer.write(dest, info, content_type)
 
-def logProcess(*info):
+
+def log_process(*info):
     print(*info)
-    Writer.write_custom("log/process_log.txt", (" ".join([str(i) for i in info])+'\n'), 
-                mode="a", encoding=DEFAULT_ENCODING)
+    Writer.write_custom("log/process_log.txt", (" ".join([str(i) for i in info]) + '\n'),
+                        mode="a", encoding=DEFAULT_ENCODING)

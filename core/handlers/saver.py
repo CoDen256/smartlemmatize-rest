@@ -1,4 +1,4 @@
-from core.handlers.handler import AbstractHandler
+from core.handlers.abstract_handlers import AbstractHandler
 from core.resource_manager import ResourceManager
 from core.files.writer import Writer, ANY
 from core.utils import logProcess
