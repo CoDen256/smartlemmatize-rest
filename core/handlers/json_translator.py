@@ -1,7 +1,7 @@
 from core.handlers.handler import AbstractHandler
 from core.files import Writer
 from core.data import LemmatizedTimeCode, PartOfSpeech
-
+import json
 from collections.abc import Iterable
 
 class Content:
@@ -14,7 +14,7 @@ class Content:
     @staticmethod
     def getTranslator(fromContent, toContent):
         if Content.LTC in [fromContent, toContent]:
-            return TranslatorLTC()
+            return TranslatorLTC(fromContent, toContent)
         elif Content.POS in [fromContent, toContent]:
             return TranslatorPOS(fromContent, toContent)
         else:
@@ -53,13 +53,13 @@ class TranslatorLTC:
     def translate(self, inputContent):
         if self.jsonToLtc:
             return self.translateFromJSON(inputContent)
-        return self.jsonToLtc(inputContent)
+        return self.translateToJSON(inputContent)
 
     def translateToJSON(self, ltc):
-        raise Exception("translateToJSON not implemented")
+        return json.dumps([str(l) for l in ltc])
 
     def translateFromJSON(self, json):
-        raise Exception("translateFromJSON not implemented")
+        return json.loads(json)
 
 
 class TranslatorPOS:
