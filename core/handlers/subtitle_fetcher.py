@@ -1,10 +1,12 @@
 from core.handlers.handler import AbstractHandler
 from core.files.writer import Writer
+from core.services.open_subtitle_service import OpenSubtitleService
 
 class SubtitleFetcher(AbstractHandler):
     def handle(self, request):
-        result = request.getContent()
+        result = OpenSubtitleService.fetch(request)
 
         request.setContent(result)
+        Writer.write_bin("0_subtitles.gzip")
 
         return super().handle(request)

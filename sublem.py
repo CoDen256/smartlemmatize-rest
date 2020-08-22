@@ -28,11 +28,12 @@ class SubtitleLemmatizer:
         ltc_loader = ResourceLoader(manager.LTC)
         ltc_branch = SubtitlePurifier(ALL)
 
-        ltc_branch.link(Splitter(CabWebService.MAX_LENGTH))\
+        ltc_branch.link(Splitter(CabWebService.MAX_LENGTH, decapitalize=True))\
         .link(LemmaFetcher())\
+        .link(JSONTranslator(Content.JSON, Content.POS))\
         .link(LemmaConnector())\
         .link(TimeStamper())\
-        .link(JSONTranslator())\
+        #.link(JSONTranslator())\
 
         srt = SRTProvider(manager,
                           srt_loader,
@@ -42,8 +43,8 @@ class SubtitleLemmatizer:
                           ltc_loader,
                           ltc_branch)
 
-        ltc.link(srt)
-        r = ltc.handle(query)
+        #ltc.link(srt)
+        r = srt.handle(query)
         print("\nCHAIN: ", r.chain)
         return r.getContent()
 
@@ -55,7 +56,7 @@ def main(id, e, s):
     sublem = SubtitleLemmatizer()
     result = sublem.lemmatize(query)
 
-    Writer.write("result", result)
+    Writer.write("result.txt", result)
 
 
 main("0898266",1,1)
