@@ -1,4 +1,3 @@
-from core.services.fetcher import Fetcher
 from core.data.request import Request
 from core.utils import assertType
 
@@ -11,6 +10,7 @@ class OpenSubtitleService:
 
     @staticmethod
     def fetch(request):
+        from core.services.fetcher import Fetcher
         assertType("request to fetch", request, Request)
         result_url = OpenSubtitleService.URL.format(EPISODE = request.episode,
                                 SEASON = request.season,

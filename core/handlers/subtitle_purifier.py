@@ -1,5 +1,7 @@
 from core.handlers.handler import AbstractHandler
-from core.files.writer import Writer
+from core.utils import log, assertType
+from core.data import Request
+
 import re
 
 TIME_CODES = 1 << 0
@@ -32,11 +34,16 @@ class SubtitlePurifier(AbstractHandler):
         self.result = None
 
     def handle(self, request):
+        assertType("PurifierRequest", request, Request)
+        assertType("PurifierRequestContent", request.getContent(), str)
+
+        log("21_purifier.txt", request.getContent())
+        print(repr(request.getContent())[:500])
         self.purify(request.getContent())
         
         request.setContent(self.result)
-
-        Writer.write_text("1_purifier.txt", self.result)
+        print(self.result[:500])
+        log("2_purifier.txt", self.result)
 
         return super().handle(request)
 

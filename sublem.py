@@ -1,17 +1,11 @@
 from core.data import Request
-
 from core.handlers import *
-
 from core.providers import *
-
 from core.handlers.subtitle_purifier import ALL
-
-from core.files import Writer
-
 from core.services.cab_web_service import CabWebService
-
 from core.resource_manager import ResourceManager
-from core.utils import assertType
+from core.files.writer import JSON, ANY, BYTE
+from core.utils import assertType,log, logProcess
 
 class SubtitleLemmatizer:
     # imdb_id - id of movie on imdb.  https://www.imdb.com/  => search => url ../title/tt{ID}/...
@@ -24,10 +18,9 @@ class SubtitleLemmatizer:
 
         srt_loader = ResourceLoader(manager.SRT)
         srt_branch = SubtitleFetcher()
+        srt_branch.link(Unzipper()).link(ResourceSaver(manager.SRT, BYTE))
 
-        srt_branch.link(Unzipper())\
-        .link(ResourceSaver(manager.SRT, mode="wb"))
-
+        srt = SRTProvider(manager, srt_loader, srt_branch)
 
         ltc_loader = ResourceLoader(manager.LTC)
         ltc_branch = SubtitlePurifier(ALL)
@@ -37,26 +30,26 @@ class SubtitleLemmatizer:
         .link(LemmaConnector())\
         .link(TimeStamper(srt))\
         .link(JSONTranslator(Content.LTC, Content.JSON))\
-        .link(ResourceSaver(manager.LTC))
+        .link(ResourceSaver(manager.LTC, JSON))
 
-        ltc = LTCProvider(manager,
-                          ltc_loader,
-                          ltc_branch)
+        ltc = LTCProvider(manager, ltc_loader, ltc_branch)
 
         ltc.link(srt)
         r = ltc.handle(query)
-        print("\nCHAIN: ", r.chain)
+        logProcess("\nCHAIN: ", r.chain)
         return r.getContent()
 
 def main(id, e, s):
     plain = f"id={id}&e={e}&s={s}"
 
-    query = Request.of(plain)
+    req = Request.of(plain)
+
+    logProcess("\n\n"+"-"*30+f"\n\n {req} is started the process")
 
     sublem = SubtitleLemmatizer()
-    result = sublem.lemmatize(query)
+    result = sublem.lemmatize(req)
 
-    Writer.write("result.txt", result)
+    log("sublem.json", result, JSON)
 
 
 main("0898266",1,1)

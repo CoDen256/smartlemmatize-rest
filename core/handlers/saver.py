@@ -1,18 +1,18 @@
 from core.handlers.handler import AbstractHandler
 from core.resource_manager import ResourceManager
-from core.files.writer import Writer
+from core.files.writer import Writer, ANY
+from core.utils import logProcess
 
 class ResourceSaver(AbstractHandler):
-    def __init__(self, resource, **kwargs):
+    def __init__(self, resource, content_type=ANY):
         self.resource = resource
-        self.kwargs = kwargs
+        self.content_type = content_type
 
     def handle(self, request):
-        print("ResourceSaver saving...",  self.resource.name)
+        logProcess("ResourceSaver saving...",  self.resource.name)
 
         path = ResourceManager.path(self.resource, request)
-
-        writer = Writer(**self.kwargs)
-        writer.write(path, request.getContent())
+        
+        request.setContent(Writer.write(path, request.getContent(), content_type=self.content_type))
 
         return super().handle(request)

@@ -1,3 +1,5 @@
+from json import JSONEncoder, dumps
+
 class LemmatizedTimeCode:
     def __init__(self, lemmas, start, end):
         self.lemmas = lemmas               # Lemmas of all the words in this period
@@ -13,3 +15,9 @@ class LemmatizedTimeCode:
 
     def __repr__(self):
         return self.__str__()
+
+class LTCEncoder(JSONEncoder):
+    def default(self, o):
+        return o.__dict__
+
+

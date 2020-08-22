@@ -1,6 +1,6 @@
 from core.handlers.handler import AbstractHandler
-from core.files import Writer
-from core.data import LemmatizedTimeCode, PartOfSpeech
+from core.utils import log
+from core.data import LemmatizedTimeCode, PartOfSpeech, LTCEncoder
 import json
 from collections.abc import Iterable
 
@@ -37,11 +37,11 @@ class JSONTranslator(AbstractHandler):
 
         request.setContent(result)
 
-        Writer.write(f"json_translator{self.fromContent}_{self.toContent}.txt", result)
+        log(f"9_json_translator{self.fromContent}_{self.toContent}.txt", result)
         return super().handle(request)
 
 
-class TranslatorLTC:
+class TranslatorLTC(json.JSONEncoder):
     def __init__(self, fromContent, toContent):
         if fromContent == Content.JSON and toContent == Content.LTC:
             self.jsonToLtc= True
@@ -56,10 +56,11 @@ class TranslatorLTC:
         return self.translateToJSON(inputContent)
 
     def translateToJSON(self, ltc):
-        return json.dumps([str(l) for l in ltc])
+        return json.dumps(ltc, cls=LTCEncoder)
 
     def translateFromJSON(self, json):
         return json.loads(json)
+
 
 
 class TranslatorPOS:

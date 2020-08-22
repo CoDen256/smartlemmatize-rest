@@ -1,23 +1,32 @@
-from collections.abc import Iterable
 import pprint
 
+BYTE = "BYTE"
+JSON = "JSON"
+ANY = "ANY"
+
+DEFAULT_ENCODING = "utf-8-sig"
+
 class Writer:
-    DEFAULT_ENCODING = "utf-8-sig"
-
-    def __init__(self, **kwargs):
-        self.kwargs = kwargs
-
-    def write(self, filename, content):
-        print("[Wrtiting to ", filename, "]")
-        with open(filename, **self.kwargs) as f:
-            f.write(content)
-        return content
 
     @staticmethod
-    def write_text(filename, content):
+    def write(filename, content, content_type=ANY):
+        if content_type == BYTE:
+            return Writer.write_bin(filename, content)
+        elif content_type == ANY:
+            return Writer.write_text(filename, content)
+        elif content_type == JSON:
+            return Writer.write_text(filename, content, pretty=False)
+        
+        raise Exception("Undentified content type")
+
+    @staticmethod
+    def write_text(filename, content, pretty=True):
         print("[Wrtiting text to ", filename, "]")
-        with open(filename, mode="w", encoding=Writer.DEFAULT_ENCODING) as f:
-            f.write(content)
+        with open(filename, mode="w", encoding=DEFAULT_ENCODING) as f:
+            if pretty:
+                f.write(pprint.pformat(content))
+            else:
+                f.write(content)
         return content
     
     @staticmethod
@@ -25,12 +34,12 @@ class Writer:
         print("[Wrtiting binary to ", filename, "]")
         with open(filename, mode="wb") as f:
             f.write(content)
-        return content
-        
+            
+        return content.decode(encoding=DEFAULT_ENCODING).replace("\r", "")
+
     @staticmethod
-    def write_iter(filename, array):
-        array = pprint.pformat(array)
-        print("[Wrtiting array to ", filename, "]")
-        with open(filename, mode="w", encoding=Writer.DEFAULT_ENCODING) as f:
-            f.writelines(array)
-        return array
+    def write_custom(filename, content, **kwargs):
+        #print("[Wrtiting custom to ", filename, "]")
+        with open(filename, **kwargs) as f:
+            f.write(content)
+        return content

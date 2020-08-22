@@ -1,5 +1,5 @@
 from core.handlers.handler import AbstractHandler
-from core.files.writer import Writer
+from core.utils import log, logProcess
 import re
 
 class Splitter(AbstractHandler):
@@ -10,8 +10,10 @@ class Splitter(AbstractHandler):
     def handle(self, request):
         result = self.split(request.getContent(), self.limit)
 
-        Writer.write_iter("2_splitted.txt", self.beautify(result))
-        print(f"SPLITED INTO {len(result)} chunks")
+        log("3_splitted.txt", self.beautify(result))
+
+        logProcess(f"SPLITED INTO {len(result)} chunks")
+
         request.setContent(self.toQueries(result))
 
         return super().handle(request)

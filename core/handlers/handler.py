@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from core.utils import assertType
+from core.utils import assertType, logProcess
 from core.resource_manager import ResourceManager, Resource
 
 class Handler(ABC):
@@ -41,7 +41,7 @@ class ResourceHandler(AbstractHandler):
         isPresent = self._manager.exists(self._resource, request)
         request.handledBy(type(self).__name__)
 
-        print(f"Child deligation via {isPresent} condition from", type(self).__name__)
+        logProcess(f"Child deligation via {isPresent} condition from", type(self).__name__)
 
         if isPresent: return self._onPresent.handle(request)
         return self._onAbsent.handle(self.execute_linked(request))

@@ -1,3 +1,4 @@
+from core.utils import logProcess
 class Request:
     def __init__(self, id, season, episode):
         self.id = id
@@ -36,8 +37,11 @@ class Request:
 
     def handledBy(self, handler):
 
-        print("[", handler, "] just handled the request", str(self))
+        logProcess("[", handler, "] just handled the request", str(self))
 
         self.chain.append(handler)
     def __str__(self):
         return f"Request({self.id}, {self.season}, {self.episode})"
+
+    def __repr__(self):
+        return self.__str__()
