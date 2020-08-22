@@ -1,4 +1,3 @@
-import requests
 from core.services.fetcher import Fetcher
 
 class CabWebService:
