@@ -1,4 +1,5 @@
 from collections.abc import Iterable
+import pprint
 
 class Writer:
     DEFAULT_ENCODING = "utf-8-sig"
@@ -14,21 +15,22 @@ class Writer:
 
     @staticmethod
     def write_text(filename, content):
-        print("[Wrtiting to ", filename, "]")
+        print("[Wrtiting text to ", filename, "]")
         with open(filename, mode="w", encoding=Writer.DEFAULT_ENCODING) as f:
             f.write(content)
         return content
     
     @staticmethod
     def write_bin(filename, content):
-        print("[Wrtiting to ", filename, "]")
+        print("[Wrtiting binary to ", filename, "]")
         with open(filename, mode="wb") as f:
             f.write(content)
         return content
         
     @staticmethod
     def write_iter(filename, array):
-        print("[Wrtiting to ", filename, "]")
+        array = pprint.pformat(array)
+        print("[Wrtiting array to ", filename, "]")
         with open(filename, mode="w", encoding=Writer.DEFAULT_ENCODING) as f:
             f.writelines(array)
         return array

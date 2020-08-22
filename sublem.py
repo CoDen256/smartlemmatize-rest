@@ -5,6 +5,7 @@ from core.handlers import *
 from core.providers import *
 
 from core.handlers.subtitle_purifier import ALL
+
 from core.files import Writer
 
 from core.services.cab_web_service import CabWebService
@@ -30,24 +31,20 @@ class SubtitleLemmatizer:
 
         ltc_loader = ResourceLoader(manager.LTC)
         ltc_branch = SubtitlePurifier(ALL)
-
-        #ltc_branch.link(Splitter(CabWebService.MAX_LENGTH))\
-        #.link(LemmaFetcher())\
-        #.link(JSONTranslator(Content.JSON, Content.POS))\
-        #.link(LemmaConnector())\
-        #.link(TimeStamper())\
-        #.link(JSONTranslator())\
-
-        srt = SRTProvider(manager,
-                          srt_loader,
-                          srt_branch)
+        ltc_branch.link(Splitter(CabWebService.MAX_LENGTH, decapitalize=True))\
+        .link(LemmaFetcher())\
+        .link(JSONTranslator(Content.JSON, Content.POS))\
+        .link(LemmaConnector())\
+        .link(TimeStamper(srt))\
+        .link(JSONTranslator(Content.LTC, Content.JSON))\
+        .link(ResourceSaver(manager.LTC))
 
         ltc = LTCProvider(manager,
                           ltc_loader,
                           ltc_branch)
 
-        #ltc.link(srt)
-        r = srt.handle(query)
+        ltc.link(srt)
+        r = ltc.handle(query)
         print("\nCHAIN: ", r.chain)
         return r.getContent()
 
