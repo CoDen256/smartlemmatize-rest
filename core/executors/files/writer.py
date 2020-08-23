@@ -1,39 +1,42 @@
 import pprint
 from core.data.enums import Files
 
-class Writer:
 
+class Writer:
     @staticmethod
     def write(filename, content, content_type=Files.RAW):
         if content_type == Files.BYTE:
-            return Writer.write_bin(filename, content)
+            return Writer.write_byte(filename, content)
         elif content_type == Files.RAW:
-            return Writer.write_text(filename, content, pretty=False)
+            return Writer.write_raw(filename, content, pretty=False)
         elif content_type == Files.PRETTY:
-            return Writer.write_text(filename, content, pretty=True)
+            return Writer.write_raw(filename, content, pretty=True)
 
-        raise Exception("Undefined content type")
+        raise TypeError("Undefined content type")
 
     @staticmethod
-    def write_text(filename, content, pretty=True):
+    def write_raw(filename, content, pretty):
         print("[Writing text to ", filename, "]")
-        with open(filename, mode="w", encoding=Files.DEFAULT_ENCODING) as f:
+        with open(filename, mode="w", encoding=Files.DEFAULT_ENCODING, newline='') as f:
             if pretty:
                 f.write(pprint.pformat(content))
             else:
-                f.write(content)
+                f.write(str(content))
         return content
-    
+
     @staticmethod
-    def write_bin(filename, content):
+    def write_byte(filename, content):
+        if not isinstance(content, bytes):
+            raise TypeError("Content is not byte")
         print("[Writing binary to ", filename, "]")
         with open(filename, mode="wb") as f:
             f.write(content)
-            
+
         return content
 
     @staticmethod
     def write_custom(filename, content, **kwargs):
+        kwargs['newline'] = ''
         with open(filename, **kwargs) as f:
             f.write(content)
         return content
