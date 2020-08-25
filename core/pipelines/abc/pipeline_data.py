@@ -36,6 +36,12 @@ class PipelineData:
     def of(**data):
         return PipelineData({None: data})
 
+    def __str__(self):
+        return str(self.__dict__)
+
+    def __repr__(self):
+        return self.__str__()
+
 
 class PipelineDataException(Exception):
     def __init__(self, p_input, *args):
