@@ -6,7 +6,7 @@ class PipelineData:
         if submitters: assert all([isinstance(v, dict) for v in submitters.values()])
 
         self.submitters = submitters
-        self.data = self._merge_dicts(self.submitters.values())
+        self.data = self._merge_dicts(list(self.submitters.values()))
 
     def get_data(self):
         return self.data
@@ -18,7 +18,7 @@ class PipelineData:
         for key in self.data.keys():
             if key == arg:
                 return self.data[key]
-        return PipelineDataException(self, f"No value for argument {arg} was found")
+        raise PipelineDataException(self, f"No value for argument {arg} was found")
 
     def _merge_dicts(self, dict_list):
         assert isinstance(dict_list, list)
@@ -27,8 +27,9 @@ class PipelineData:
         base = {}
         for dic in dict_list:
             common = set(dic.keys()) & set(base.keys())
-            if common and dic[common] != base[common]:
-                raise PipelineDataException(self, "Merging two inputs has discovered argument intersections")
+            for c in common:
+                if dic[c] != base[c]:
+                    raise PipelineDataException(self, f"Merging two inputs has discovered argument intersections for argument: {c} ({dic[c]} != {base[c]})")
             base.update(dic)
         return base
 

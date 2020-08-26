@@ -1,6 +1,7 @@
 import unittest
 
-from core.pipelines.abc.abstract_pipeline import Pipeline, AbstractSubmitter, AbstractReceiver, PipelineConnectionException
+from core.pipelines.abc.abstract_pipeline import Pipeline, AbstractSubmitter, AbstractReceiver,\
+PipelineConnectionException, PipelineExecutionException
 from core.pipelines.abc.basic_pipelines import Starter, Finisher
 from core.pipelines.abc.pipeline_data import PipelineData, PipelineDataException
 from core.pipelines.abc.group import PipelineSubmitterGroup, PipelineReceiverGroup
@@ -9,6 +10,7 @@ from core.pipelines.abc.group import PipelineSubmitterGroup, PipelineReceiverGro
 class NamePipeline(Pipeline):
 
     def __init__(self, name):
+        print("\n\nname--")
         super(NamePipeline, self).__init__()
         self.name = name
 
@@ -26,6 +28,12 @@ class NamePipeline(Pipeline):
     def __repr__(self):
         return self.name
 
+class ZeroDivisionPipeline(Pipeline):
+    def execute(self, incoming_data):
+        i = 1/0
+
+    def __init__(self):
+        super(ZeroDivisionPipeline, self).__init__()
 
 class TestPipeline(unittest.TestCase):
 
@@ -41,10 +49,10 @@ class TestPipeline(unittest.TestCase):
         self.all_pipelines = [self.starter, self.alpha, self.beta, self.gamma, self.delta, self.omega, self.finisher]
 
     def test_disconnect(self):
-        self.disconnect_all()
         self.alpha.to(self.beta).to(self.gamma).to(self.delta)
+        for p in self.all_pipelines:
+            p.disconnect()
 
-        self.disconnect_all()
         self.assert_connections(self.alpha, [], [])
         self.assert_connections(self.beta, [], [])
         self.assert_connections(self.gamma, [], [])
@@ -52,7 +60,6 @@ class TestPipeline(unittest.TestCase):
         self.assert_connections(self.omega, [], [])
 
     def test_wrong_connections(self):
-        self.disconnect_all()
         self.assertRaises(PipelineConnectionException,
                           lambda: self.starter.to(self.beta, self.alpha.to(self.beta), self.gamma))
 
@@ -65,43 +72,30 @@ class TestPipeline(unittest.TestCase):
         self.assertRaises(PipelineConnectionException,
                           lambda: self.finisher.from_(self.beta, self.alpha.to(self.gamma)))
 
-        self.disconnect_all()
-
     def test_submitter_group(self):
-        self.disconnect_all()
         group = self.starter.to(self.alpha, self.beta, self.gamma)
         self._test_group(group, PipelineSubmitterGroup, [self.alpha, self.beta, self.gamma])
-        self.disconnect_all()
 
     def test_double_submitter_group(self):
-        self.disconnect_all()
         group = self.starter.to(self.alpha, self.beta).to(self.gamma)
         self._test_group(group, PipelineSubmitterGroup,[self.gamma])
-        self.disconnect_all()
 
     def test_receiver_group(self):
-        self.disconnect_all()
         group = self.gamma.from_(self.alpha, self.beta, self.omega)
         self._test_group(group, PipelineReceiverGroup, [self.alpha, self.beta, self.omega])
-        self.disconnect_all()
 
     def test_double_receiver_group(self):
-        self.disconnect_all()
         group = self.finisher.from_(self.delta, self.omega).from_(self.gamma)
         self._test_group(group, PipelineReceiverGroup, [self.gamma])
-        self.disconnect_all()
 
     def _test_group(self, group, target_type, target_pipelines):
         self.assertIsInstance(group, target_type)
         self.assertEquals(group.pipelines, target_pipelines)
 
     def test_self_connection(self):
-        self.disconnect_all()
         self.assertRaises(PipelineConnectionException, lambda: self.alpha.to(self.beta, self.gamma, self.alpha))
-        self.disconnect_all()
 
     def test_diamond_chain(self):
-        self.disconnect_all()
 
         self.starter.to(self.alpha, self.beta).to(self.gamma)
         self.finisher.from_(self.delta, self.omega).from_(self.gamma)
@@ -114,10 +108,7 @@ class TestPipeline(unittest.TestCase):
         self.assert_connections(self.omega, inc=[self.gamma], out=[self.finisher])
         self.assert_connections(self.finisher, inc=[self.delta, self.omega], out=[])
 
-        self.disconnect_all()
-
     def test_complex_connections(self):
-        self.disconnect_all()
         self.starter.to(self.alpha).to(self.beta).to(self.delta, self.gamma).to(self.omega).to(self.finisher)
         self.finisher.from_(self.starter, self.beta)
 
@@ -133,42 +124,56 @@ class TestPipeline(unittest.TestCase):
 
         self.assert_connections(self.finisher, inc=[self.starter, self.beta, self.omega], out=[])
 
-        self.disconnect_all()
+    def test_data_intersection(self):
 
-    def _submission(self):
-        self.disconnect_all()
-        starter = Starter(start="start")
-        finisher = Finisher()
+        self.starter.to(self.alpha, self.beta).to(self.finisher)
 
-        alpha = NamePipeline("alpha")
-        beta = NamePipeline("beta")
+        self.assertRaises(PipelineDataException, lambda: self.starter.start())
 
-        starter.to(alpha).to(beta)
+    def test_wrong_data_key(self):
+        self.starter.to(self.finisher)
+        self.starter.start()
+        result = self.finisher.get_result()
+        self.assertRaises(PipelineDataException, lambda: result.get("wrong"))
 
-        finisher.from_(starter, beta)
+    def test_data_execution_exception(self):
+        wrong = ZeroDivisionPipeline()
 
-        starter.start()
-        result = finisher.get_result()
+        self.starter.to(wrong)
+
+        try:
+            self.starter.start()
+        except Exception as e:
+            self.assertIsInstance(e, PipelineExecutionException)
+            self.assertIsInstance(e.cause, ZeroDivisionError)
+
+    def test_execution_not_started(self):
+        self.starter.to(self.alpha).to(self.beta).to(self.finisher)
+        self.assertRaises(PipelineExecutionException, lambda: self.finisher.get_result())
+
+    def test_no_incoming_pipelines_on_result(self):
+        self.assertRaises(PipelineConnectionException, lambda: self.finisher.get_result())
+
+    def test_data_submission(self):
+
+        self.starter.to(self.alpha).to(self.beta)
+
+        self.finisher.from_(self.starter, self.beta)
+
+        self.starter.start()
+        result = self.finisher.get_result()
 
         self.assertTrue(isinstance(result, PipelineData))
-        self.assertEqual(result, {
-            'start': 'start',
-            'names': ['alpha', 'beta']
+        self.assertEqual(result.get_data(), {
+            'start': 'start',  # came from starter
+            'names': ['alpha', 'beta']  # came from beta (who received only {'names':['alpha']}
         })
-        self.disconnect_all()
-
-    def disconnect_all(self):
-        for p in self.all_pipelines:
-            p.disconnect()
 
     def assert_connections(self, pipeline, inc, out):
         if pipeline is AbstractReceiver:
             self.assertEquals(pipeline.incoming_pipelines, inc, type(pipeline).__name__)
         if pipeline is AbstractSubmitter:
             self.assertEquals(pipeline.outcoming_pipelines, out, type(pipeline).__name__)
-
-    def time_elapsed(self):
-        pass
 
 
 if __name__ == '__main__':

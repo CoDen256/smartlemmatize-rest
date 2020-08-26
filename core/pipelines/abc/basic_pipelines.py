@@ -1,4 +1,5 @@
-from core.pipelines.abc.abstract_pipeline import Pipeline, AbstractSubmitter, AbstractReceiver
+from core.pipelines.abc.abstract_pipeline import Pipeline, AbstractSubmitter, AbstractReceiver,\
+    PipelineExecutionException, PipelineConnectionException
 from abc import abstractmethod
 
 
@@ -36,6 +37,13 @@ class Finisher(AbstractReceiver):
         self.result_data = None
 
     def get_result(self):
+        if not self.incoming_pipelines:
+            raise PipelineConnectionException(None, self,
+                                              "No pipelines were connected to the finisher")
+
+        if self.result_data is None:
+            raise PipelineExecutionException(self, None,
+                                             "No data was received by finisher. (Check if execution was started).")
         return self.result_data
 
     def execute(self, incoming_data):

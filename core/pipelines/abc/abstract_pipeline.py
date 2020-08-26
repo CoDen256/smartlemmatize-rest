@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from core.pipelines.abc.pipeline_data import PipelineData
+from core.pipelines.abc.pipeline_data import PipelineData, PipelineDataException
 from core.pipelines.abc.group import PipelineSubmitterGroup, PipelineReceiverGroup
 
 
@@ -7,6 +7,7 @@ class AbstractReceiver(ABC):
     def __init__(self):
         self.incoming_pipelines = []
         self.inputs = {}
+        print(type(self).__name__, "receiver side")
 
     def from_(self, *pipelines):
         for p in pipelines:
@@ -38,6 +39,8 @@ class AbstractReceiver(ABC):
         assert isinstance(incoming_data, PipelineData)
         try:
             self.execute(incoming_data)
+        except PipelineDataException as e_data:
+            raise e_data
         except Exception as e:
             raise PipelineExecutionException(self, e)
 
@@ -54,13 +57,18 @@ class AbstractReceiver(ABC):
         pass
 
     def __str__(self):
-        return f"{str(self.incoming_pipelines)} => {type(self).__name__}"
+        return f"{type(self).__name__}"
+
+    def __repr__(self):
+        return f"{type(self).__name__}" \
+               f"({str([s.__str__() for s in self.incoming_pipelines])})"
 
 
 class AbstractSubmitter(ABC):
     def __init__(self):
         self.outcoming_pipelines = []
         self.own_output = None
+        print(type(self).__name__, "submitter side")
 
     def to(self, *pipelines):
         for p in pipelines:
@@ -100,13 +108,18 @@ class AbstractSubmitter(ABC):
         return bool(self.get_output())
 
     def __str__(self):
-        return f"{type(self).__name__} => {str(self.outcoming_pipelines)}"
+        return f"{type(self).__name__}"
+
+    def __repr__(self):
+        return f"{type(self).__name__}" \
+               f"({str([s.__str__() for s in self.outcoming_pipelines])})"
 
 
 class Pipeline(AbstractReceiver, AbstractSubmitter):
     def __init__(self):
         AbstractReceiver.__init__(self)
         AbstractSubmitter.__init__(self)
+        print(self.inputs)
 
     def disconnect(self):
         AbstractReceiver.disconnect(self)
@@ -116,8 +129,14 @@ class Pipeline(AbstractReceiver, AbstractSubmitter):
     def execute(self, incoming_data):
         pass
 
+
     def __str__(self):
-        return f"{str(self.incoming_pipelines)} => {type(self).__name__} => {str(self.outcoming_pipelines)}"
+        return f"{type(self).__name__}"
+
+    def __repr__(self):
+        return f"{type(self).__name__}" \
+               f"({str([s.__str__() for s in self.incoming_pipelines])}" \
+               f"{str([s.__str__() for s in self.outcoming_pipelines])})"
 
 
 class PipelineConnectionException(Exception):
