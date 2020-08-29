@@ -1,7 +1,7 @@
-from core.handlers.handler import AbstractHandler
+from core.handlers.abstract_handlers import AbstractHandler
 from core.handlers.subtitle_purifier import ALL, TIME_CODES, NEW_LINES, SPLIT, STRIP, SubtitlePurifier
 from core.data.timecode import LemmatizedTimeCode
-from core.files.writer import Writer
+from core.utils import log, logProcess, log
 import re
 
 class TimeStamper(AbstractHandler):
@@ -16,8 +16,6 @@ class TimeStamper(AbstractHandler):
 
         result = self.stamp(self.purify(raw), lemmata)
         request.setContent(result)
-
-        Writer.write_iter("5_time_stamper.txt", result)
 
         return super().handle(request)
 
@@ -47,7 +45,7 @@ class TimeStamper(AbstractHandler):
                 try:
                     currentOriginalLine = re.sub(re.escape(lemma.original), "", currentOriginalLine, flags=re.IGNORECASE,count=1)
                 except Exception as e:
-                    print("UNABLE TO PROCCESS LINE:", currentOriginalLine, "<->",  lemma.original, e)
+                    logProcess("UNABLE TO PROCCESS LINE:", currentOriginalLine, "<->",  lemma.original, e)
 
                 currentLemma += 1
                 if (currentLemma >= len(lemmas)): break

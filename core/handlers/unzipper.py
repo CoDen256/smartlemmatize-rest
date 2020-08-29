@@ -1,8 +1,7 @@
-from core.handlers.handler import AbstractHandler
-from core.files.writer import Writer
-import os
+from core.handlers.abstract_handlers import AbstractHandler
+from core.utils import log
+from core.files import BYTE
 import gzip
-import shutil
 
 class Unzipper(AbstractHandler):
     def handle(self, request):
@@ -10,7 +9,7 @@ class Unzipper(AbstractHandler):
 
         request.setContent(result)
         
-        Writer.write_bin("01_unzipped.srt", result)
+        log("1_unzipped.srt", result, BYTE)
 
         return super().handle(request)
 

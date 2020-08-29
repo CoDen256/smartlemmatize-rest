@@ -1,6 +1,5 @@
-from core.handlers.handler import AbstractHandler
-from core.files import Writer
-from core.utils import assertType
+from core.handlers.abstract_handlers import AbstractHandler
+from core.utils import assertType, log
 
 from collections.abc import Iterable
 from core.data import PartOfSpeech
@@ -13,7 +12,7 @@ class LemmaConnector(AbstractHandler):
 
         request.setContent(result)
 
-        Writer.write("4_lemma_connector.txt", result)
+        log("5_lemma_connector.txt", result)
         return super().handle(request)
 
 

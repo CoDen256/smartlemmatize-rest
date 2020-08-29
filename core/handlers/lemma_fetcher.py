@@ -1,6 +1,6 @@
-from core.handlers.handler import AbstractHandler
-from core.services.cab_web_service import CabWebService
-from core.files.writer import Writer
+from core.handlers.abstract_handlers import AbstractHandler
+from core.executors.web_services import CabWebService
+from core.utils import log
 
 class LemmaFetcher(AbstractHandler):
     def handle(self, request):
@@ -8,7 +8,7 @@ class LemmaFetcher(AbstractHandler):
         result = CabWebService.fetch(request.getContent())
 
         request.setContent(result)
-        Writer.write_iter("3_cabweb.txt", [str(r) for r in result])
+        log("4_cabweb.json", result)
 
 
         return super().handle(request)

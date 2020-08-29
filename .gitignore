@@ -577,3 +577,10 @@ fabric.properties
 .idea/caches/build_file_checksums.ser
 
 .txt
+resources/
+test/The.Big.Bang.Theory.S01E04.German.DL.1080p.BluRay.x264-iND.srt
+test/expected.srt
+test/input.srt
+test/not_large_new_lines.srt.txt
+test/notc.srt.txt
+test/test.srt
