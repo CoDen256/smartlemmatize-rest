@@ -1,4 +1,4 @@
-from core.pipelines.abc.abstract_pipeline import Pipeline, AbstractSubmitter, AbstractReceiver,\
+from core.pipelines.abc.abstract_pipeline import Pipeline, AbstractSubmitter, AbstractReceiver, \
     PipelineExecutionException, PipelineConnectionException
 from abc import abstractmethod
 
@@ -7,6 +7,7 @@ class VoidPipeline(Pipeline):
     """
     Just executes some task on input, without changing the input
     """
+
     def execute(self, incoming_data):
         self.run(incoming_data)
         self.submit(**incoming_data.get_data())
@@ -20,6 +21,7 @@ class Starter(AbstractSubmitter):
     """
     Starts the execution of pipeline from the given input
     """
+
     def __init__(self, **start_data):
         super().__init__()
         self.start_data = start_data
@@ -32,6 +34,7 @@ class Finisher(AbstractReceiver):
     """
     Finishes the execution of pipeline and returns result value
     """
+
     def __init__(self):
         super().__init__()
         self.result_data = None

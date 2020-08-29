@@ -1,8 +1,8 @@
 import unittest
 
-from core.pipelines.abc.abstract_pipeline import Pipeline, AbstractSubmitter, AbstractReceiver,\
-PipelineConnectionException, PipelineExecutionException
-from core.pipelines.abc.basic_pipelines import Starter, Finisher
+from core.pipelines.abc.abstract_pipeline import Pipeline, AbstractSubmitter, AbstractReceiver, \
+    PipelineConnectionException, PipelineExecutionException
+from core.pipelines.abc.basic_pipelines import Starter, Finisher, VoidPipeline
 from core.pipelines.abc.pipeline_data import PipelineData, PipelineDataException
 from core.pipelines.abc.group import PipelineSubmitterGroup, PipelineReceiverGroup
 
@@ -28,12 +28,19 @@ class NamePipeline(Pipeline):
     def __repr__(self):
         return self.name
 
+
 class ZeroDivisionPipeline(Pipeline):
     def execute(self, incoming_data):
-        i = 1/0
+        i = 1 / 0
+        i += 1
 
     def __init__(self):
         super(ZeroDivisionPipeline, self).__init__()
+
+class Void(VoidPipeline):
+    def run(self, incoming_data):
+        pass
+
 
 class TestPipeline(unittest.TestCase):
 
@@ -78,7 +85,7 @@ class TestPipeline(unittest.TestCase):
 
     def test_double_submitter_group(self):
         group = self.starter.to(self.alpha, self.beta).to(self.gamma)
-        self._test_group(group, PipelineSubmitterGroup,[self.gamma])
+        self._test_group(group, PipelineSubmitterGroup, [self.gamma])
 
     def test_receiver_group(self):
         group = self.gamma.from_(self.alpha, self.beta, self.omega)
@@ -168,6 +175,15 @@ class TestPipeline(unittest.TestCase):
             'start': 'start',  # came from starter
             'names': ['alpha', 'beta']  # came from beta (who received only {'names':['alpha']}
         })
+
+    def test_void_pipeline(self):
+        self.starter.to(Void()).to(Void()).to(Void()).to(self.finisher)
+
+        self.starter.start()
+        result = self.finisher.get_result()
+
+        self.assertTrue(isinstance(result, PipelineData))
+        self.assertEqual(result.get_data(), self.starter.start_data)
 
     def assert_connections(self, pipeline, inc, out):
         if pipeline is AbstractReceiver:
