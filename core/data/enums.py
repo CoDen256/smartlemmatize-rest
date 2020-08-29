@@ -1,3 +1,4 @@
+import re
 class Files:
     BYTE, RAW, PRETTY = 1, 2, 4
     DEFAULT_ENCODING = "utf-8-sig"
@@ -8,16 +9,24 @@ class Translators:
 
 
 class PureCodes:
-    CARRIAGE = 1 << 0
-    TIME_CODES = 1 << 1
-    ADS = 1 << 2
-    REMARKS = 1 << 3
-    TRIPLE_DOTS = 1 << 4
-    TAGS = 1 << 5
-    NAMES = 1 << 6
-    DIALOG = 1 << 7
-    NEW_LINES = 1 << 8
-    SPLIT = 1 << 9
-    STRIP = 1 << 10
+    ADS = 1 << 1
+    REMARKS = 1 << 2
+    TRIPLE_DOTS = 1 << 3
+    TAGS = 1 << 4
+    NAMES = 1 << 5
+    DIALOG = 1 << 6
+    ABBREVIATIONS = 1 << 7
+    PARSE = 1 << 8
 
-    ALL = CARRIAGE | TIME_CODES | ADS | REMARKS | TRIPLE_DOTS | TAGS | NAMES | DIALOG | NEW_LINES | SPLIT | STRIP
+    SPLIT = 1 << 9
+
+    DEFAULT = ADS | REMARKS | TRIPLE_DOTS | TAGS | NAMES | DIALOG | ABBREVIATIONS
+    ALL = DEFAULT | PARSE | SPLIT
+
+    SPLIT_PARSED = PARSE | SPLIT
+
+
+class Constants:
+    ABBREVIATIONS = ["z.b.", "mr.", "ms.", "mrs.", "dr.", "etc."]
+    DIGITS_REGEX = r"\d+\.\d+"
+    DOT_REGEX = "(" + "|".join([re.escape(s) for s in ABBREVIATIONS]+[DIGITS_REGEX])+")"

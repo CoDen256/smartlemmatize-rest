@@ -1,99 +1,89 @@
 import unittest
+import time
 
 from core.executors.files.reader import Reader
-from core.executors.converters.purifier import Purifier, PureCodes
+from core.executors.files.writer import Writer
+from core.executors.converters.purifier import Purifier, PureCodes, Constants
 
 
 class PurifierTest(unittest.TestCase):
     def setUp(self):
-        self.script = Reader.read("test.srt")
-
-    def test_remove_carriage(self):
-        message = "Simple line \n\r\r\n another simple line"
-        pur = Purifier(PureCodes.CARRIAGE)
-
-        self.assertEqual("Simple line \n\n another simple line",
-                         pur.purify(message))
-        self.assertNotIn("\r", pur.purify(self.script))
-
-    def test_remove_time_codes(self):
-        message = "1\n00:00:02,128 --> 00:00:04,839\nSimple line\n"
-        pur = Purifier(PureCodes.TIME_CODES)
-
-        self.assertEqual("Simple line\n", pur.purify(message))
-        self.assertNotRegex(r"\d+[\n]\d{2}:\d{2}:\d{2},\d{3} --> \d{2}:\d{2}:\d{2},\d{3}[\n]",
-                            pur.purify(self.script))
+        self.script = Reader.read_raw("input.srt")
 
     def test_remove_ad(self):
         pur = Purifier(PureCodes.ADS)
-        self.assertNotRegex(r".\[German - SDH\].*OpenSubtitles.*", pur.purify(self.script))
-        self.assertNotRegex("\nHier könnte deine Werbung stehen!\nKontaktiere noch heute www.OpenSubtitles.org\n",
-                            pur.purify(self.script))
+        self.assertNotIn(r"[German - SDH]", pur.apply(self.script))
+        self.assertNotIn("Hier könnte deine Werbung stehen!",
+                         pur.apply(self.script))
+        self.assertNotIn("Kontaktiere noch heute www.OpenSubtitles.org",
+                         pur.apply(self.script))
 
     def test_remove_script_remarks(self):
-        message = "(NEW LINE)"
         pur = Purifier(PureCodes.REMARKS)
-
-        self.assertEqual("new line.", pur.purify(message))
-        self.assertNotRegex(r'\((.*[\n]?.*)\)', pur.purify(self.script))
+        self.assertNotRegex(pur.apply(self.script), r'\((.*[\n]?.*)\)')
 
     def test_remove_triple_dots(self):
-        message = "New line...Probably new sentence"
-        message_question = "Are you sure ...? Yes"
         pur = Purifier(PureCodes.TRIPLE_DOTS)
+        pure = pur.apply(self.script)
 
-        self.assertEqual("New line.Probably new sentence", pur.purify(message))
-        self.assertEqual("Are you sure ? Yes", pur.purify(message_question))
-        self.assertNotIn("...", pur.purify(self.script))
-        self.assertNotIn(".?", pur.purify(self.script))
+        self.assertNotIn("...", pure)
+        self.assertNotIn(".?", pure)
 
     def test_remove_remove_tags(self):
-        message = "</i>Wow gut who made this is really cool!<i>"
         pur = Purifier(PureCodes.TAGS)
-
-        self.assertEqual("Wow gut who made this is really cool!", pur.purify(message))
-        self.assertNotRegex(r"</?i>", pur.purify(self.script))
+        self.assertNotRegex(pur.apply(self.script), r"</?i>")
 
     def test_remove_names(self):
-        message = "SOMEONE:\nSOMETHING\n\nPlan A:\nNAME: INFO"
         pur = Purifier(PureCodes.NAMES)
-
-        self.assertEqual("SOMETHING\n\nPlan A:\nINFO", pur.purify(message))
-        self.assertNotRegex(r"[A-Z]{2,}:[\s\n]", pur.purify(self.script))
+        self.assertNotRegex(pur.apply(self.script), r"[A-Z]+:[\s\n]")
 
     def test_remove_dialog_markers(self):
-        message = "- Huh?\n- Huh!\n- Oh really? Are you sure you want a-b thing"
-        pur = Purifier(PureCodes.DIALOG)
+        pur = Purifier(PureCodes.ADS | PureCodes.DIALOG)
+        self.assertNotRegex(pur.apply(self.script), r"\-[\w\s]")
 
-        self.assertEqual("Huh?\nHuh!\nOh really? Are you sure you want a-b thing", pur.purify(message))
-        self.assertNotRegex(r"^- ", pur.purify(self.script))
+    def test_remove_abbreviations(self):
+        pur = Purifier(PureCodes.ABBREVIATIONS)
+        for abb in Constants.ABBREVIATIONS:
+            self.assertNotIn(abb, pur.apply(self.script))
 
-    def test_remove_new_lines(self):
-        message = "Huh?\nHuh!\nOh really? Are you sure\nyou want a-b thing."
-        pur = Purifier(PureCodes.NEW_LINES)
+    def test_parse(self):
+        pur = Purifier(PureCodes.DEFAULT | PureCodes.PARSE)
 
-        self.assertEqual("Huh? Huh! Oh really? Are you sure you want a-b thing.", pur.purify(message))
-        self.assertNotRegex(r"[\n]", pur.purify(self.script))
+        parsed = pur.apply(self.script)
+        self.define_only_for_specified_script()
+        self.assertEqual(len(parsed), 1539)
 
-    def test_new_line_per_sentence(self):
-        message = "Huh? Huh! Oh really? Are you sure you want a-b thing."
-        pur = Purifier(PureCodes.SPLIT)
+    def test_splitted(self):
+        pur = Purifier(PureCodes.DEFAULT | PureCodes.SPLIT_PARSED)
+        self.define_only_for_specified_script()
+        expected_first_three = [
+            "Wenn ein Elektron auf eine Platte mit 2 Spalten geschossen wird, und jeder Spalt beobachtet wird, geht es nicht durch beide hindurch.",
+            "Unbeobachtet jedoch schon.",
+            "Das heißt, wenn das Elektron vor Auftreffen auf der Platte beobachtet wird, geht es nur durch eine der Spalten."
+        ]
+        self.assertNotIn("\"", pur.apply(self.script))
+        self.assertEqual(expected_first_three, pur.apply(self.script)[:3])
 
-        self.assertEqual("Huh?\n Huh!\n Oh really?\n Are you sure you want a-b thing.\n", pur.purify(message))
-        #self.assertRegexpMatches("(\.[\n]|\?[\n]|)")
+        Writer.write_raw("out", pur.apply(self.script), True)
 
+    # @unittest.skip("Only for measuring")
+    def test_measure(self):
+        self.define_only_for_specified_script()
+        measured = []
+        for i in range(5):
+            before = time.time()
+            Purifier(PureCodes.ALL).apply(self.script)
+            after = time.time()
 
-    def test_strip_lines(self):
-        self.assertEqual(True, False)
+            measured.append(after-before)
 
-    def test_full_script(self):
-        # test on different artifacts, like .., .? etc..
-        #self.assertNotIn("..", pur.purify(self.script))
-        self.assertEqual(True, False)
+        aver = sum(measured)/len(measured)
+        print("AVERAGE EXECUTION TIME:", aver)
+        self.assertLessEqual(aver, 0.25)
 
-    def test_full_message(self):
-        # just testt equality of message and expected
-        self.assertEqual(True, False)
+    def define_only_for_specified_script(self):
+        self.assertEqual(129607, len(self.script),
+                         msg="Test works is defined for .srt combined of 4 first episodes of BBT. The len of test script:")
 
 if __name__ == '__main__':
     unittest.main()

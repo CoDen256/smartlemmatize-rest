@@ -1,6 +1,7 @@
 import pprint
 from core.data.enums import Files
 
+printer = pprint.PrettyPrinter(width=2000)
 
 class Writer:
     @staticmethod
@@ -19,7 +20,7 @@ class Writer:
         print("[Writing text to ", filename, "]")
         with open(filename, mode="w", encoding=Files.DEFAULT_ENCODING, newline='') as f:
             if pretty:
-                f.write(pprint.pformat(content))
+                f.write(printer.pformat(content))
             else:
                 f.write(str(content))
         return content
