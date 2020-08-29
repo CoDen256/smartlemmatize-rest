@@ -37,12 +37,13 @@ class Allocator:
                 current_lemma_count += 1
                 if current_lemma_count >= len(lemmata): break
             else:
-                if not lemmata_per_time_code and self.parse_subtitle(subtitles[current_line_count])[-1] != current_original_line:
+
+                if not lemmata_per_time_code and current_original_line.strip():
                     current_lemma_count += 1
                     if current_lemma_count >= len(lemmata): break
                     continue
 
-                if self.parse_subtitle(subtitles[current_line_count])[-1] != current_original_line:
+                if current_original_line.strip():
                     result.append(LemmatizedTimeCode(lemmata_per_time_code, start, end))
 
                 current_line_count += 1

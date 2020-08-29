@@ -35,4 +35,8 @@ class OpenSubtitleService:
             if source["InfoFormat"] == OpenSubtitleService.INFO_FORMAT:
                 return source["SubDownloadLink"]
 
-        raise Exception("Download link not found")
+        try:
+            return max(response, key=lambda r: int(r["SubDownloadsCnt"]))["SubDownloadLink"]
+        except:
+            raise Exception("Download link not found")
+

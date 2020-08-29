@@ -23,13 +23,13 @@ class SubtitleLemmatizer:
         connector.add_connection("NO_LTC", self.create_ltc)
         connector.add_connection("ALL", self.load_ltc)
 
-       #if not manager.exists(ResourceManager.SRT, request):
-       #    connector.connect("NONE")
-       #elif not manager.exists(ResourceManager.LTC, request):
-       #    connector.connect("NO_LTC")
-       #else:
-       #    connector.connect("ALL")
-        connector.connect("NO_LTC")
+        if not manager.exists(ResourceManager.SRT, request):
+            connector.connect("NONE")
+        elif not manager.exists(ResourceManager.LTC, request):
+            connector.connect("NO_LTC")
+        else:
+            connector.connect("ALL")
+        #connector.connect("NO_LTC")
         starter.start()
 
         return finisher.result_data
@@ -78,6 +78,7 @@ def main(id, e, s):
     sublem = SubtitleLemmatizer()
     sublem.lemmatize(req)
 
-
-#for i in range(1, 10):
-main("0898266", 7, 1)
+id = "0898266"
+id2 = "5753856"
+for i in range(1, 10):
+    main(id2, i, 1)

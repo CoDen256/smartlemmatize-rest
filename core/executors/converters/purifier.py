@@ -44,7 +44,7 @@ class Purifier:
         replace = lambda r: (r.lower()[1:-1] + ".")
 
         res = re.sub(r'\((.*[\n]?.*)\)', lambda r: replace(r.group(0)), res)
-
+        res = re.sub(r'\[(.*[\n]?.*)\]', lambda r: replace(r.group(0)), res)
         return res
 
     @staticmethod
