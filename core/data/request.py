@@ -1,4 +1,4 @@
-from core.utils import log_process
+
 class Request:
     def __init__(self, id, season, episode):
         self.id = id
@@ -35,11 +35,6 @@ class Request:
     def setContent(self, content):
         self._content = content
 
-    def handledBy(self, handler):
-
-        logProcess("[", handler, "] just handled the request", str(self))
-
-        self.chain.append(handler)
     def __str__(self):
         return f"Request({self.id}, {self.season}, {self.episode})"
 

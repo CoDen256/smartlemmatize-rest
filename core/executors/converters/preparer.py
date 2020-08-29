@@ -1,3 +1,4 @@
+import re
 
 class Preparer:
     def __init__(self, limit, decapitalize=False):
@@ -5,12 +6,13 @@ class Preparer:
         self.limit = limit
         if not self.limit or self.limit < 0: raise ValueError("Limit is not specified or incorrect")
 
-    def split_and_prepare(self, pure):
-        if not pure: raise Preparer.NothingToSplitException("Input is empty")
+    def split_and_prepare(self, sentences):
+        if not sentences: raise Preparer.NothingToSplitException("Input is empty")
 
         temp = [""]
-        for line in pure:
+        for line in sentences:
             line = line.strip()
+            line = re.sub(r"(\.)", r" \1 ", line)
 
             if len(line) <= 1: continue
             if len(line) > self.limit:

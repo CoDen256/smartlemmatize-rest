@@ -69,7 +69,7 @@ class Purifier:
 
     @staticmethod
     def remove_abbreviations(res):
-        return re.sub(Constants.DOT_REGEX, lambda o: re.sub(r"\.", " ", o.group(0)), res, flags=re.IGNORECASE)
+        return re.sub(Constants.DOT_REGEX, lambda o: re.sub(r"\.", "", o.group(0)), res, flags=re.IGNORECASE)
 
     @staticmethod
     def parse(res):

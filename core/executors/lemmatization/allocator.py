@@ -1,5 +1,6 @@
 from core.data.timecode import LemmatizedTimeCode
 import re
+from difflib import SequenceMatcher
 
 
 class Allocator:
@@ -9,8 +10,14 @@ class Allocator:
 
     @staticmethod
     def parse_subtitle(line):
-        return line.start, line.end, line.content
+        return Allocator.format_time(line.start), Allocator.format_time(line.end), line.content
 
+    @staticmethod
+    def format_time(time):
+        return str(time)
+    @staticmethod
+    def similar(a, b):
+        return SequenceMatcher(None, a, b).ratio()
     def process(self, subtitles, lemmata):
         result = []
 
@@ -25,12 +32,19 @@ class Allocator:
             if lemma.original.lower() in current_original_line.lower():
                 lemmata_per_time_code.append(lemma)
 
-                self.trim_line(lemma, current_original_line)
+                current_original_line = self.trim_line(lemma, current_original_line)
 
                 current_lemma_count += 1
                 if current_lemma_count >= len(lemmata): break
             else:
-                result.append(LemmatizedTimeCode(lemmata_per_time_code, start, end))
+                if not lemmata_per_time_code and self.parse_subtitle(subtitles[current_line_count])[-1] != current_original_line:
+                    current_lemma_count += 1
+                    if current_lemma_count >= len(lemmata): break
+                    continue
+
+                if self.parse_subtitle(subtitles[current_line_count])[-1] != current_original_line:
+                    result.append(LemmatizedTimeCode(lemmata_per_time_code, start, end))
+
                 current_line_count += 1
                 if current_line_count >= len(subtitles): break
                 lemmata_per_time_code = []

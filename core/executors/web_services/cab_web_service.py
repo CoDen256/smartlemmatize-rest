@@ -1,12 +1,14 @@
+from core.data.enums import Constants
+
+
 class CabWebService:
     API = "http://www.deutschestextarchiv.de/demo/cab/query?a=caberr&fmt=json&clean=1&q={query}"
-    MAX_LENGTH = 1745
     DEVIATION = 1  # can happen because of new lines 1-2 symbols
 
     @staticmethod
     def fetch(sentences):
         from core.executors.web_services.fetcher import Fetcher
-        if any([len(s) > CabWebService.MAX_LENGTH + CabWebService.DEVIATION for s in sentences]):
+        if any([len(s) > Constants.MAX_LENGTH + CabWebService.DEVIATION for s in sentences]):
             raise Exception("Length of sentence is exceeded, url will not be fethced, abort")
 
         if isinstance(sentences, str):

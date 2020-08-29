@@ -19,11 +19,16 @@ class TranslatorLTC(json.JSONEncoder):
 
     @staticmethod
     def translate_to_json(ltc_array):
-        return json.dumps(ltc_array, cls=TranslatorLTC)
+        return json.dumps(ltc_array, cls=LtcEncoder)
 
     @staticmethod
     def translate_from_json(json_ltc):
         raise ValueError("Translation from json for LTC not implemented")
 
+    def default(self, o):
+        return o.__dict__
+
+
+class LtcEncoder(json.JSONEncoder):
     def default(self, o):
         return o.__dict__

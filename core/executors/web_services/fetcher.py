@@ -1,33 +1,34 @@
 import grequests
 import requests
-from core.utils import assertType, logProcess
+from core.utils import log_process
 
-print("[FETCHER LOADED]")
+print("--- { FETCHER LOADED } ---")
+
 
 class Fetcher:
     @staticmethod
     def fetch(*urls, **kwargs):
         for u in urls:
-            assertType("URL", u, str)
+            assert isinstance(u, str)
             print("Fetching async url:", u[:100])
 
         requests = (grequests.get(u, **kwargs) for u in urls)
-        responses = grequests.map(requests, exception_handler=lambda r, e: logProcess("EXCEPTION OCCURED WHILE FETCHING",r, e))
+        responses = grequests.map(requests, exception_handler=lambda r, e: log_process("EXCEPTION OCCURED WHILE FETCHING",r, e))
 
-        logProcess("Responses", responses)
+        log_process("Responses", responses)
         for r in responses:
             if (r is not None and not r.ok):
-                logProcess("Response", r, "is not ok", r.reason)
+                log_process("Response", r, "is not ok", r.reason)
 
         return responses
 
     @staticmethod
     def fetchOne(url, **kwargs):
-        logProcess("Fetching url:", url)
+        log_process("Fetching url:", url)
         response = requests.get(url, **kwargs)
 
-        logProcess("Response", response)
+        log_process("Response", response)
         if (response is not None and not response.ok):
-                logProcess("Response", response, "is not ok", response.reason)
+                log_process("Response", response, "is not ok", response.reason)
 
         return response

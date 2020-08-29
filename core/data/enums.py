@@ -1,4 +1,7 @@
+import os
 import re
+
+
 class Files:
     BYTE, RAW, PRETTY = 1, 2, 4
     DEFAULT_ENCODING = "utf-8-sig"
@@ -6,7 +9,20 @@ class Files:
 
 class Translators:
     JSON, LTC, POS = 1, 2, 4
+    ALL = JSON, LTC, POS
 
+
+
+
+class Resource:
+    def __init__(self, name, path, template):
+        self.name = name
+        self.absolute_folder = os.path.abspath(path) + "/"
+
+        self._template = template
+
+    def get_absolute_path(self, **kwargs):
+        return self.absolute_folder + self._template.format(**kwargs)
 
 class PureCodes:
     ADS = 1 << 1
@@ -30,3 +46,4 @@ class Constants:
     ABBREVIATIONS = ["z.b.", "mr.", "ms.", "mrs.", "dr.", "etc."]
     DIGITS_REGEX = r"\d+\.\d+"
     DOT_REGEX = "(" + "|".join([re.escape(s) for s in ABBREVIATIONS]+[DIGITS_REGEX])+")"
+    MAX_LENGTH = 1745

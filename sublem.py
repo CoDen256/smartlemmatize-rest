@@ -1,11 +1,9 @@
+from core.utils import log, log_process
 from core.data import Request
-from core.handlers import *
-from core.providers import *
-from core.handlers.subtitle_purifier import ALL
-from core.executors import CabWebService
+from core.data.enums import Files, PureCodes, Constants, Translators
 from core.resource_manager import ResourceManager
-from core.files.writer import JSON, BYTE
-from core.utils import assertType, log, logProcess
+from core.pipelines import *
+
 
 
 class SubtitleLemmatizer:
@@ -13,44 +11,61 @@ class SubtitleLemmatizer:
     # season - season of movie
     # episode - episode of movie
 
-    def lemmatize(self, query):  # return JSON(List[LemmatizedTimeCode])
-        assertType("query", query, Request)
-
+    def lemmatize(self, request):
+        assert isinstance(request, Request)
         manager = ResourceManager()
 
-        srt_loader = ResourceLoader(manager.SRT)
-        srt_branch = SubtitleFetcher()
-        srt_branch.link(Unzipper()).link(ResourceSaver(manager.SRT, BYTE))
+        starter = Starter(request=request)
+        finisher = Finisher()
+        connector = Connector(starter, finisher)
 
-        srt = SRTProvider(manager, srt_loader, srt_branch)
+        connector.add_connection("NONE", self.create_all)
+        connector.add_connection("NO_LTC", self.create_ltc)
+        connector.add_connection("ALL", self.load_ltc)
 
-        ## starter->OpenSubtitles -> Unzipper -> Saver(SRT) -> Decoder -> (or Reader(SRT)) -> SubtitlePurifier(ALL, RAW)
-        # -> SubtitleSplitter(MAX) -> CabService -> POSTranslator ->
-        ## -> LemmaConnecter(reader(srt)->subpur(all, timecode))-> LTCTranslator -> Saver(LTC) -> (or Reader(LTC)) -> finisher
+       #if not manager.exists(ResourceManager.SRT, request):
+       #    connector.connect("NONE")
+       #elif not manager.exists(ResourceManager.LTC, request):
+       #    connector.connect("NO_LTC")
+       #else:
+       #    connector.connect("ALL")
+        connector.connect("NO_LTC")
+        starter.start()
 
-        ## not covered: OpenSubtitles, CabService, (POS | LTC)
-        #Translator
-        ## covered
-        #Unzipper, Saver, Decoder, Reader
-        ## to
-        #cover: SubtitlePurifier, LemmaConnecter, SubtitleSplitter
+        return finisher.result_data
 
-        ltc_loader = ResourceLoader(manager.LTC)
-        ltc_branch = SubtitlePurifier(ALL)
-        ltc_branch.link(Splitter(CabWebService.MAX_LENGTH, decapitalize=True)) \
-            .link(LemmaFetcher()) \
-            .link(JSONTranslator(Content.JSON, Content.POS)) \
-            .link(LemmaConnector()) \
-            .link(TimeStamper(srt)) \
-            .link(JSONTranslator(Content.LTC, Content.JSON)) \
-            .link(ResourceSaver(manager.LTC, JSON))
+    def create_all(self, starter, finisher):
+        fetcher_srt = SubtitleFetcher()
+        unzipper_srt = SrtUnzipper()
+        saver_srt = ResourceSaver(ResourceManager.SRT, Files.BYTE)
+        decoder_srt = SrtDecoder(Files.DEFAULT_ENCODING)
 
-        ltc = LTCProvider(manager, ltc_loader, ltc_branch)
+        starter.to(saver_srt)
+        starter.to(fetcher_srt).to(unzipper_srt).to(saver_srt).to(decoder_srt) #TODO: continue
+        self.create_ltc(starter, finisher)
 
-        ltc.link(srt)
-        r = ltc.handle(query)
-        logProcess("\nCHAIN: ", r.chain)
-        return r.getContent()
+    def create_ltc(self, starter, finisher):
+        srt_loader = ResourceLoader(ResourceManager.SRT)
+        purifier_srt = SrtPurifier(PureCodes.ALL)
+        purifier_parse = SrtPurifier(PureCodes.DEFAULT | PureCodes.PARSE)
+        preparer_srt = SrtPreparer(Constants.MAX_LENGTH, decapitalize=True)
+        fetcher = LemmaFetcher()
+        translator_json_pos = Translator(Translators.JSON, Translators.POS)
+        connector_pos = PosConnector()
+        allocator_ltc = LtcAllocator()
+        translator_ltc_json = Translator(Translators.LTC, Translators.JSON)
+        saver_ltc = ResourceSaver(ResourceManager.LTC, Files.RAW)
+
+        starter.to(srt_loader, saver_ltc)
+        srt_loader.to(purifier_srt, purifier_parse)
+
+        purifier_parse.to(allocator_ltc)
+
+        purifier_srt.to(preparer_srt).to(fetcher).to(translator_json_pos)
+        translator_json_pos.to(connector_pos).to(allocator_ltc).to(translator_ltc_json).to(saver_ltc).to(finisher)
+
+    def load_ltc(self, starter, finisher):
+        starter.to(ResourceLoader(ResourceManager.LTC)).to(finisher)
 
 
 def main(id, e, s):
@@ -58,12 +73,11 @@ def main(id, e, s):
 
     req = Request.of(plain)
 
-    logProcess("\n\n" + "-" * 30 + f"\n\n {req} is started the process")
+    log_process("\n\n" + "-" * 30 + f"\n\n {req} is started the process")
 
     sublem = SubtitleLemmatizer()
-    result = sublem.lemmatize(req)
-
-    log("sublem.json", result, JSON)
+    sublem.lemmatize(req)
 
 
-main("0898266", 1, 1)
+#for i in range(1, 10):
+main("0898266", 7, 1)

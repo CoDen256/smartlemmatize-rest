@@ -7,7 +7,6 @@ class AbstractReceiver(ABC):
     def __init__(self):
         self.incoming_pipelines = []
         self.inputs = {}
-        print(type(self).__name__, "receiver side")
 
     def from_(self, *pipelines):
         for p in pipelines:
@@ -32,7 +31,7 @@ class AbstractReceiver(ABC):
 
         self.inputs[pipeline] = input
 
-        if all([p.is_finished() for p in self.incoming_pipelines]):
+        if all([p.is_finished() and p in self.inputs.keys() for p in self.incoming_pipelines]):
             self.check_and_execute(PipelineData(self.inputs))
 
     def check_and_execute(self, incoming_data):
@@ -68,7 +67,6 @@ class AbstractSubmitter(ABC):
     def __init__(self):
         self.outcoming_pipelines = []
         self.own_output = None
-        print(type(self).__name__, "submitter side")
 
     def to(self, *pipelines):
         for p in pipelines:
@@ -119,7 +117,6 @@ class Pipeline(AbstractReceiver, AbstractSubmitter):
     def __init__(self):
         AbstractReceiver.__init__(self)
         AbstractSubmitter.__init__(self)
-        print(self.inputs)
 
     def disconnect(self):
         AbstractReceiver.disconnect(self)
