@@ -24,6 +24,17 @@ class SubtitleLemmatizer:
 
         srt = SRTProvider(manager, srt_loader, srt_branch)
 
+        ## starter->OpenSubtitles -> Unzipper -> Saver(SRT) -> Decoder -> (or Reader(SRT)) -> SubtitlePurifier(ALL, RAW)
+        # -> SubtitleSplitter(MAX) -> CabService -> POSTranslator ->
+        ## -> LemmaConnecter(reader(srt)->subpur(all, timecode))-> LTCTranslator -> Saver(LTC) -> (or Reader(LTC)) -> finisher
+
+        ## not covered: OpenSubtitles, CabService, (POS | LTC)
+        #Translator
+        ## covered
+        #Unzipper, Saver, Decoder, Reader
+        ## to
+        #cover: SubtitlePurifier, LemmaConnecter, SubtitleSplitter
+
         ltc_loader = ResourceLoader(manager.LTC)
         ltc_branch = SubtitlePurifier(ALL)
         ltc_branch.link(Splitter(CabWebService.MAX_LENGTH, decapitalize=True)) \

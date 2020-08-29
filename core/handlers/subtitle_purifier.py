@@ -14,6 +14,7 @@ DIALOG = 1 << 6
 NEW_LINES = 1 << 7
 SPLIT = 1 << 8
 STRIP = 1 << 9
+DECAPITALIZE = 1 << 10
 
 ALL = TIME_CODES | \
       ADS | \
@@ -24,7 +25,10 @@ ALL = TIME_CODES | \
       DIALOG | \
       NEW_LINES | \
       SPLIT | \
-      STRIP 
+      STRIP
+
+
+
 #.replace("\r", "")
 #TODO HANDLERS AND EXECUTORS SEPARATE
 #TODO RUN MULTIPLE REGEX .SUB, AT ONE TIME
