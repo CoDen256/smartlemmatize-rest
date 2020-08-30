@@ -85,7 +85,9 @@ class Purifier:
             for i, sent in enumerate(content):
                 sent = sent.strip()
                 last = temp[-1]
-                endln = "" if i == len(content) - 1 else '.'
+                endln = "" if i == len(content) - 1 and sent.upper() != sent else '.'
+
+                sent = Purifier.decapitalize_if_upper(sent)
 
                 if last.endswith("."):
                     temp.append(Purifier.last_formatting(sent) + endln)
@@ -99,6 +101,12 @@ class Purifier:
         res = re.sub("\"", "", res)
         res = re.sub(r"[\n:]", " ", res)
         return res
+
+    @staticmethod
+    def decapitalize_if_upper(line):
+        if line.upper() == line:
+            return line.lower()
+        return line
 
     def optimize_ads_tags_names_removal(self):
         reg = r"(Hier könnte deine Werbung stehen!\s|Kontaktiere noch heute www\.OpenSubtitles\.org\s|"\

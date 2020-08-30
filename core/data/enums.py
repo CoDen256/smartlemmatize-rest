@@ -4,7 +4,6 @@ import re
 
 class Files:
     BYTE, RAW, PRETTY = 1, 2, 4
-    DEFAULT_ENCODING = "utf-8-sig"
 
 
 class Translators:
@@ -43,5 +42,6 @@ class PureCodes:
 class Constants:
     ABBREVIATIONS = ["z.b.", "mr.", "ms.", "mrs.", "dr.", "etc."]
     DIGITS_REGEX = r"\d+\.\d+"
-    DOT_REGEX = "(" + "|".join([re.escape(s) for s in ABBREVIATIONS]+[DIGITS_REGEX])+")"
+    DOT_REGEX = "(" + "|".join([r"\W"+re.escape(s)+r"\W" for s in ABBREVIATIONS]+[DIGITS_REGEX])+")"
+
     MAX_LENGTH = 1745

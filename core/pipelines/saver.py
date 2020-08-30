@@ -18,5 +18,6 @@ class ResourceSaver(VoidPipeline):
 
         path = ResourceManager.path(self.resource, request)
 
-        Writer.write(path, data, content_type=self.content_type)
+        Writer.write(path, data, enc=request.encoding, content_type=self.content_type)
+
 

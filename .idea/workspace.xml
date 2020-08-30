@@ -29,38 +29,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bda5709b-c953-450f-be6f-84097900e27d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/data/encodings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/.vscode/settings.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/data/enums.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/data/enums.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/data/request.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/data/request.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/executors/converters/preparer.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/executors/converters/preparer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/executors/converters/purifier.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/executors/converters/purifier.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/executors/files/decoder.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/executors/files/decoder.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/executors/files/reader.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/executors/files/reader.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/executors/files/writer.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/executors/files/writer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/executors/lemmatization/allocator.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/executors/lemmatization/allocator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/handlers/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/handlers/abstract_handlers.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/handlers/json_translator.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/handlers/lemma_connector.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/handlers/lemma_fetcher.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/handlers/loader.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/handlers/saver.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/handlers/splitter.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/handlers/subtitle_fetcher.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/handlers/subtitle_purifier.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/handlers/time_stamper.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/handlers/unzipper.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/pipelines/pos_connector.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/pipelines/pos_connector.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/executors/lemmatization/connector.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/executors/lemmatization/connector.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/executors/web_services/open_subtitle_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/executors/web_services/open_subtitle_service.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/pipelines/loader.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/pipelines/loader.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/pipelines/saver.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/pipelines/saver.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/pipelines/srt_decoder.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/pipelines/srt_decoder.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/pipelines/srt_fetcher.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/pipelines/srt_fetcher.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/pipelines/srt_unzipper.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/pipelines/srt_unzipper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/providers/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/providers/ltc_provider.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/providers/srt_provider.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/core/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/utils.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/prefix_counter.py" beforeDir="false" afterPath="$PROJECT_DIR$/prefix_counter.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sublem.py" beforeDir="false" afterPath="$PROJECT_DIR$/sublem.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/abb.srt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/out" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/output.srt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/parsed" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/splitted" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/test_purifier.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/test_purifier.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,10 +86,11 @@
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="add_unversioned_files" value="$PROJECT_DIR$/log/process_log.txt&#10;D:/Programming/Python/Main Projects/SubtitleLemmatizer/test/gzipper_test.py&#10;D:/Programming/Python/Main Projects/SubtitleLemmatizer/resources/ltc/ltc_0898266_s1_ep15.json&#10;D:/Programming/Python/Main Projects/SubtitleLemmatizer/test/test_gzipper.py&#10;D:/Programming/Python/Main Projects/SubtitleLemmatizer/resources/ltc/ltc_0898266_s1_ep2.json&#10;D:/Programming/Python/Main Projects/SubtitleLemmatizer/resources/ltc/ltc_0898266_s1_ep5.json&#10;D:/Programming/Python/Main Projects/SubtitleLemmatizer/test/input.srt" />
+    <property name="add_unversioned_files" value="$PROJECT_DIR$/log/process_log.txt&#10;D:/Programming/Python/Main Projects/SubtitleLemmatizer/test/gzipper_test.py&#10;D:/Programming/Python/Main Projects/SubtitleLemmatizer/resources/encodings.cfg&#10;D:/Programming/Python/Main Projects/SubtitleLemmatizer/resources/ltc/ltc_0898266_s1_ep15.json&#10;D:/Programming/Python/Main Projects/SubtitleLemmatizer/test/test_gzipper.py&#10;D:/Programming/Python/Main Projects/SubtitleLemmatizer/resources/ltc/ltc_0898266_s1_ep2.json&#10;D:/Programming/Python/Main Projects/SubtitleLemmatizer/resources/ltc/ltc_0898266_s1_ep5.json&#10;D:/Programming/Python/Main Projects/SubtitleLemmatizer/test/input.srt" />
+    <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="JSON&#10;RegExp" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/resources" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
+    <property name="settings.editor.selected.configurable" value="preferences.fileTypes" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -114,7 +104,7 @@
       <recent name="D:\Programming\Python\Main Projects\SubtitleLemmatizer\core\executors" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.Counter">
+  <component name="RunManager" selected="Python.sublem">
     <configuration name="Counter" type="PythonConfigurationType" factoryName="Python">
       <module name="SubtitleLemmatizer" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -356,7 +346,14 @@
       <option name="project" value="LOCAL" />
       <updated>1598772620218</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Refactor code, delete unused functions and files">
+      <created>1598773853617</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1598773853617</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -392,7 +389,8 @@
     <MESSAGE value="Connect all piplines. Every pipeline is now executed by executors." />
     <MESSAGE value="Improve allocator to get most spotted prefixes and to be more flexible." />
     <MESSAGE value="Connect properly pipelines" />
-    <option name="LAST_COMMIT_MESSAGE" value="Connect properly pipelines" />
+    <MESSAGE value="Refactor code, delete unused functions and files" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactor code, delete unused functions and files" />
   </component>
   <component name="WindowStateProjectService">
     <state x="392" y="71" key="#Plugins" timestamp="1598730945758">
@@ -407,22 +405,26 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="-106" y="82" width="1416" height="676" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.0.1600.860@0.0.1600.860" timestamp="1598700743065" />
-    <state x="561" y="232" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1598709062267">
+    <state x="561" y="232" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1598791390577">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="561" y="232" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1600.860@0.0.1600.860" timestamp="1598709062267" />
+    <state x="561" y="232" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1600.860@0.0.1600.860" timestamp="1598791390577" />
     <state x="605" y="146" key="#com.intellij.ide.util.MemberChooser" timestamp="1598709105611">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="605" y="146" key="#com.intellij.ide.util.MemberChooser/0.0.1600.860@0.0.1600.860" timestamp="1598709105611" />
-    <state x="530" y="177" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1598773190326">
+    <state x="530" y="177" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1598790869181">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="530" y="177" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1600.860@0.0.1600.860" timestamp="1598773190326" />
-    <state x="826" y="254" width="490" height="569" key="#xdebugger.evaluate" timestamp="1598772950154">
+    <state x="530" y="177" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1600.860@0.0.1600.860" timestamp="1598790869181" />
+    <state x="142" y="183" key="#xdebugger.XInspectDialog" timestamp="1598779773282">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="826" y="254" width="490" height="569" key="#xdebugger.evaluate/0.0.1600.860@0.0.1600.860" timestamp="1598772950154" />
+    <state x="142" y="183" key="#xdebugger.XInspectDialog/0.0.1600.860@0.0.1600.860" timestamp="1598779773282" />
+    <state x="1018" y="180" width="490" height="569" key="#xdebugger.evaluate" timestamp="1598787960365">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="1018" y="180" width="490" height="569" key="#xdebugger.evaluate/0.0.1600.860@0.0.1600.860" timestamp="1598787960365" />
     <state x="92" y="92" width="1416" height="676" key="DiffContextDialog" timestamp="1598085568471">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
@@ -431,38 +433,38 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="580" y="185" key="FileChooserDialogImpl/0.0.1600.860@0.0.1600.860" timestamp="1598733445473" />
-    <state width="1557" height="451" key="GridCell.Tab.0.bottom" timestamp="1598773555438">
+    <state width="1557" height="216" key="GridCell.Tab.0.bottom" timestamp="1598791922430">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1557" height="451" key="GridCell.Tab.0.bottom/0.0.1600.860@0.0.1600.860" timestamp="1598773555438" />
-    <state width="1557" height="451" key="GridCell.Tab.0.center" timestamp="1598773555438">
+    <state width="1557" height="216" key="GridCell.Tab.0.bottom/0.0.1600.860@0.0.1600.860" timestamp="1598791922430" />
+    <state width="1557" height="216" key="GridCell.Tab.0.center" timestamp="1598791922429">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1557" height="451" key="GridCell.Tab.0.center/0.0.1600.860@0.0.1600.860" timestamp="1598773555438" />
-    <state width="1557" height="451" key="GridCell.Tab.0.left" timestamp="1598773555438">
+    <state width="1557" height="216" key="GridCell.Tab.0.center/0.0.1600.860@0.0.1600.860" timestamp="1598791922429" />
+    <state width="1557" height="216" key="GridCell.Tab.0.left" timestamp="1598791922429">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1557" height="451" key="GridCell.Tab.0.left/0.0.1600.860@0.0.1600.860" timestamp="1598773555438" />
-    <state width="1557" height="451" key="GridCell.Tab.0.right" timestamp="1598773555438">
+    <state width="1557" height="216" key="GridCell.Tab.0.left/0.0.1600.860@0.0.1600.860" timestamp="1598791922429" />
+    <state width="1557" height="216" key="GridCell.Tab.0.right" timestamp="1598791922429">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1557" height="451" key="GridCell.Tab.0.right/0.0.1600.860@0.0.1600.860" timestamp="1598773555438" />
-    <state width="1557" height="281" key="GridCell.Tab.1.bottom" timestamp="1598773025886">
+    <state width="1557" height="216" key="GridCell.Tab.0.right/0.0.1600.860@0.0.1600.860" timestamp="1598791922429" />
+    <state width="1557" height="134" key="GridCell.Tab.1.bottom" timestamp="1598791743823">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1557" height="281" key="GridCell.Tab.1.bottom/0.0.1600.860@0.0.1600.860" timestamp="1598773025886" />
-    <state width="1557" height="281" key="GridCell.Tab.1.center" timestamp="1598773025885">
+    <state width="1557" height="134" key="GridCell.Tab.1.bottom/0.0.1600.860@0.0.1600.860" timestamp="1598791743823" />
+    <state width="1557" height="134" key="GridCell.Tab.1.center" timestamp="1598791743823">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1557" height="281" key="GridCell.Tab.1.center/0.0.1600.860@0.0.1600.860" timestamp="1598773025885" />
-    <state width="1557" height="281" key="GridCell.Tab.1.left" timestamp="1598773025885">
+    <state width="1557" height="134" key="GridCell.Tab.1.center/0.0.1600.860@0.0.1600.860" timestamp="1598791743823" />
+    <state width="1557" height="134" key="GridCell.Tab.1.left" timestamp="1598791743823">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1557" height="281" key="GridCell.Tab.1.left/0.0.1600.860@0.0.1600.860" timestamp="1598773025885" />
-    <state width="1557" height="281" key="GridCell.Tab.1.right" timestamp="1598773025885">
+    <state width="1557" height="134" key="GridCell.Tab.1.left/0.0.1600.860@0.0.1600.860" timestamp="1598791743823" />
+    <state width="1557" height="134" key="GridCell.Tab.1.right" timestamp="1598791743823">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1557" height="281" key="GridCell.Tab.1.right/0.0.1600.860@0.0.1600.860" timestamp="1598773025885" />
+    <state width="1557" height="134" key="GridCell.Tab.1.right/0.0.1600.860@0.0.1600.860" timestamp="1598791743823" />
     <state x="152" y="68" key="MergeDialog" timestamp="1598092624386">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
@@ -471,10 +473,10 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="438" y="191" key="MultipleFileMergeDialog/0.0.1600.860@0.0.1600.860" timestamp="1598092628877" />
-    <state x="301" y="75" key="SettingsEditor" timestamp="1598118320168">
+    <state x="301" y="75" key="SettingsEditor" timestamp="1598791670106">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="301" y="75" key="SettingsEditor/0.0.1600.860@0.0.1600.860" timestamp="1598118320168" />
+    <state x="301" y="75" key="SettingsEditor/0.0.1600.860@0.0.1600.860" timestamp="1598791670106" />
     <state x="92" y="92" width="1416" height="676" key="ShowDiffWithBranchDialog" timestamp="1598085568472">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
@@ -483,17 +485,43 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="392" y="163" key="Vcs.Push.Dialog.v2/0.0.1600.860@0.0.1600.860" timestamp="1598736386932" />
+    <state width="808" height="438" key="XDebugger.FullValuePopup" timestamp="1598779748752">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state width="808" height="438" key="XDebugger.FullValuePopup/0.0.1600.860@0.0.1600.860" timestamp="1598779748752" />
     <state x="362" y="166" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1598725523451">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="362" y="166" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1600.860@0.0.1600.860" timestamp="1598725523451" />
+    <state x="643" y="215" key="refactoring.ChangeSignatureDialog" timestamp="1598777202574">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="643" y="215" key="refactoring.ChangeSignatureDialog/0.0.1600.860@0.0.1600.860" timestamp="1598777202574" />
     <state x="592" y="288" key="scopes" timestamp="1598704243361">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="592" y="288" key="scopes/0.0.1600.860@0.0.1600.860" timestamp="1598704243361" />
-    <state x="463" y="180" width="672" height="678" key="search.everywhere.popup" timestamp="1598730957463">
+    <state x="463" y="180" width="672" height="678" key="search.everywhere.popup" timestamp="1598791681885">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="463" y="180" width="672" height="678" key="search.everywhere.popup/0.0.1600.860@0.0.1600.860" timestamp="1598730957463" />
+    <state x="463" y="180" width="672" height="678" key="search.everywhere.popup/0.0.1600.860@0.0.1600.860" timestamp="1598791681885" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/core/executors/web_services/open_subtitle_service.py</url>
+          <line>22</line>
+          <option name="timeStamp" value="110" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="PythonConfigurationType">
+        <watch expression="subtitle" />
+        <watch expression="lemma" />
+        <watch expression="start" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>

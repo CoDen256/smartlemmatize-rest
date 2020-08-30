@@ -38,7 +38,7 @@ class SubtitleLemmatizer:
         fetcher_srt = SubtitleFetcher()
         unzipper_srt = SrtUnzipper()
         saver_srt = ResourceSaver(ResourceManager.SRT, Files.BYTE)
-        decoder_srt = SrtDecoder(Files.DEFAULT_ENCODING)
+        decoder_srt = SrtDecoder()
 
         starter.to(saver_srt)
         starter.to(fetcher_srt).to(unzipper_srt).to(saver_srt).to(decoder_srt)
@@ -80,6 +80,15 @@ def main(id, e, s):
 
 id = "0898266"
 id2 = "5753856"
+succes = 0
 for i in range(1, 18):
-    for j in range(1, 3):
-        main(id, i, j)
+    for j in range(1, 5):
+        try:
+            main(id, i, j)
+            succes += 1
+        except Exception as e:
+            print(e)
+print("SUCCESS:", succes)
+#main(id, 7, 3)
+#for i in range(1, 4):
+#main(id, 13, 1)

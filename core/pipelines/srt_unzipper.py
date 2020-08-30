@@ -9,4 +9,4 @@ class SrtUnzipper(Pipeline):
 
         gzipper = Gzipper()
 
-        self.submit(data=gzipper.unzip(data))
+        self.submit(data=gzipper.unzip(data), encoding=incoming_data.get('encoding'))

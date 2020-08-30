@@ -61,7 +61,7 @@ class LemmaConnector:
     def remove_special(unpacked):
         result = []
         for lemma in unpacked:
-            if lemma.wordType not in ["$,", "$."]:
+            if lemma.wordType not in ["$,", "$.", "$(", "CARD", "FM.xy"] and lemma.original.replace('\'', '').isalpha():
                 result.append(lemma)
         return result
 

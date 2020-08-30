@@ -8,6 +8,8 @@ class SubtitleFetcher(Pipeline):
         request = incoming_data.get('request')
         assert isinstance(request, Request)
 
-        result = OpenSubtitleService.fetch(request)
+        result, encoding = OpenSubtitleService.fetch(request)
 
-        self.submit(gzip=result)
+        request.setEncoding(encoding)
+
+        self.submit(gzip=result, encoding=encoding)

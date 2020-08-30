@@ -3,13 +3,12 @@ from core.executors.files import Decoder
 
 
 class SrtDecoder(Pipeline):
-    def __init__(self, encoding):
+    def __init__(self):
         super().__init__()
-        self.encoding = encoding
 
     def execute(self, incoming_data):
         data = incoming_data.get('data')
-
+        encoding = incoming_data.get('encoding')
         assert isinstance(data, bytes)
 
-        self.submit(srt=Decoder(self.encoding).decode(data))
+        self.submit(srt=Decoder(encoding).decode(data))

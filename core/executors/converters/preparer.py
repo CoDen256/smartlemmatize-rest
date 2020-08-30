@@ -18,6 +18,7 @@ class Preparer:
             if len(line) > self.limit:
                 raise Preparer.LineLengthExceededException(f"Limit: {self.limit}, Line: {line}")
 
+
             line = self.decapitalize_first_word(line)
 
             if len(temp[-1]) + len(line) > self.limit:
@@ -39,3 +40,4 @@ class Preparer:
 
     class NothingToSplitException(Exception):
         pass
+

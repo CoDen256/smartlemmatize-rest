@@ -11,15 +11,15 @@ class Reader:
         return result
 
     @staticmethod
-    def read_raw(filename):
+    def read_raw(filename, enc):
         print("[Reading from ", filename, "]")
-        with open(filename, mode="r", encoding=Files.DEFAULT_ENCODING, newline='') as f:
+        with open(filename, mode="r", encoding=enc, newline='') as f:
             result = f.read()
         return result
 
     @staticmethod
     def read_byte(filename):
-        print("[Reading from ", filename, "]")
+        print("[Reading bytes from ", filename, "]")
         with open(filename, mode="rb") as f:
             result = f.read()
         return result
