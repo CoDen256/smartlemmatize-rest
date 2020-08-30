@@ -5,8 +5,7 @@ from core.executors.files.unzipper import Gzipper
 class SrtUnzipper(Pipeline):
     def execute(self, incoming_data):
         data = incoming_data.get('gzip')
-        assert data is not None
-        # TODO is byte
+        assert isinstance(data, bytes)
 
         gzipper = Gzipper()
 

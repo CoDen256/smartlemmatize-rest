@@ -1,4 +1,3 @@
-
 class Request:
     def __init__(self, id, season, episode):
         self.id = id
@@ -7,7 +6,6 @@ class Request:
 
         self.chain = []
         self._content = None
-
 
     @staticmethod
     def toDict(plain):
@@ -23,10 +21,10 @@ class Request:
     def of(plain):
         try:
             d = Request.toDict(plain)
-            return Request(id=d["id"], 
-                         season=d["s"], 
-                         episode=d["e"])
-        except:
+            return Request(id=d["id"],
+                           season=d["s"],
+                           episode=d["e"])
+        except Exception as e:
             raise Exception("Illegal arguments")
 
     def getContent(self):

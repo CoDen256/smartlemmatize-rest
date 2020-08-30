@@ -12,8 +12,6 @@ class Translators:
     ALL = JSON, LTC, POS
 
 
-
-
 class Resource:
     def __init__(self, name, path, template):
         self.name = name

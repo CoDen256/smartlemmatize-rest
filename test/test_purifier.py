@@ -64,8 +64,6 @@ class PurifierTest(unittest.TestCase):
         self.assertNotIn("\"", pur.apply(self.script))
         self.assertEqual(expected_first_three, pur.apply(self.script)[:3])
 
-        Writer.write_raw("out", pur.apply(self.script), True)
-
     # @unittest.skip("Only for measuring")
     def test_measure(self):
         self.define_only_for_specified_script()

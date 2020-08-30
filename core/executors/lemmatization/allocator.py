@@ -1,6 +1,5 @@
 from core.data.timecode import LemmatizedTimeCode
 import re
-from difflib import SequenceMatcher
 
 
 class Allocator:
@@ -15,9 +14,7 @@ class Allocator:
     @staticmethod
     def format_time(time):
         return str(time)
-    @staticmethod
-    def similar(a, b):
-        return SequenceMatcher(None, a, b).ratio()
+
     def process(self, subtitles, lemmata):
         result = []
 
@@ -53,7 +50,8 @@ class Allocator:
 
         return result
 
-    def trim_line(self, lemma, line):
+    @staticmethod
+    def trim_line(lemma, line):
         try:
             line = re.sub(re.escape(lemma.original), "", line,
                           flags=re.IGNORECASE, count=1)

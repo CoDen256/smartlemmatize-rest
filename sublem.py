@@ -1,4 +1,4 @@
-from core.utils import log, log_process
+from core.utils import log_process
 from core.data import Request
 from core.data.enums import Files, PureCodes, Constants, Translators
 from core.resource_manager import ResourceManager
@@ -80,5 +80,6 @@ def main(id, e, s):
 
 id = "0898266"
 id2 = "5753856"
-for i in range(1, 10):
-    main(id, i, 1)
+for i in range(1, 18):
+    for j in range(1, 3):
+        main(id, i, j)

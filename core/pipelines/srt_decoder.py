@@ -10,6 +10,6 @@ class SrtDecoder(Pipeline):
     def execute(self, incoming_data):
         data = incoming_data.get('data')
 
-        assert data is not None
+        assert isinstance(data, bytes)
 
         self.submit(srt=Decoder(self.encoding).decode(data))

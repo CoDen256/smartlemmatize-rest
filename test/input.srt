@@ -1,4 +1,4 @@
-﻿1
+1
 00:00:02,128 --> 00:00:04,839
 Wenn ein Elektron auf eine Platte
 mit 2 Spalten geschossen wird,
@@ -2332,7 +2332,7 @@ Ich geh dann jetzt abwaschen.
 
 80
 00:03:28,459 --> 00:03:30,336
-Ich hab 2 600 Comic-Hefte im Regal
+Ich hab 2.600 Comic-Hefte im Regal
 
 81
 00:03:30,503 --> 00:03:34,048
@@ -3600,7 +3600,7 @@ auch kein Raumfahrtprogramm.
 
 356
 00:19:23,330 --> 00:19:24,956
-Z B  hat Penny einen Flachbildschirm,
+Z.B. hat Penny einen Flachbildschirm,
 
 357
 00:19:25,123 --> 00:19:27,125
@@ -4279,7 +4279,7 @@ auf eine biochemische Reaktion während
 122
 00:06:31,976 --> 00:06:35,396
 - des Gutenachtkusses stützen würde?
-- Herzrate, Pheromone, etc , ja.
+- Herzrate, Pheromone, etc., ja.
 
 123
 00:06:36,022 --> 00:06:38,024
@@ -4514,7 +4514,7 @@ und schwingen Sie rhythmisch.
 
 173
 00:09:54,261 --> 00:09:57,306
-Ich denke, Mrs  Tishman
+Ich denke, Mrs. Tishman
 ist scharf auf dich.
 
 174
@@ -4778,7 +4778,7 @@ zu viele Unbekannte vor.
 
 231
 00:12:56,527 --> 00:12:58,529
-Z B  hatte Sheldon heute
+Z.B. hatte Sheldon heute
 schon Quizno's zum Mittag.
 
 232
@@ -5601,7 +5601,7 @@ und verschwinden.
 22
 00:01:01,980 --> 00:01:04,941
 SHELDON: Was hältst du von: "Schön,
-Sie kennenzulernen, Dr  Gablehauser.
+Sie kennenzulernen, Dr. Gablehauser.
 
 23
 00:01:05,108 --> 00:01:07,986
@@ -6005,7 +6005,7 @@ darf ich es dir mal vorrechnen?
 110
 00:06:09,704 --> 00:06:12,123
 Und dieser Wagen wiegt,
-sagen wir mal, 2 000 kg.
+sagen wir mal, 2.000 kg.
 
 111
 00:06:12,290 --> 00:06:14,166
@@ -6033,11 +6033,11 @@ Interessant.
 116
 00:06:24,135 --> 00:06:27,513
 Jedenfalls, das ergibt nun
-ein Gesamtgewicht von 2 130 kg.
+ein Gesamtgewicht von 2.130 kg.
 
 117
 00:06:27,722 --> 00:06:29,807
-Sagen wir 2 125.
+Sagen wir 2.125.
 
 118
 00:06:29,974 --> 00:06:31,350
@@ -6211,7 +6211,7 @@ einiges in Großpackungen zu kaufen.
 
 154
 00:08:25,381 --> 00:08:27,800
-Z B  hast du heute bei den Tampons
+Z.B. hast du heute bei den Tampons
 
 155
 00:08:27,967 --> 00:08:29,427
@@ -6983,7 +6983,7 @@ die strohdumm sind.
 
 320
 00:18:11,550 --> 00:18:13,844
-Verzeihen Sie, bitte, Dr  Gablehauser,
+Verzeihen Sie, bitte, Dr. Gablehauser,
 hätten Sie kurz Zeit?
 
 321
@@ -6993,8 +6993,8 @@ hätten Sie kurz Zeit?
 
 322
 00:18:20,851 --> 00:18:23,186
-- Dr  Gablehauser.
-- Dr  Cooper.
+- Dr. Gablehauser.
+- Dr. Cooper.
 
 323
 00:18:24,521 --> 00:18:27,024
@@ -7033,7 +7033,7 @@ uns noch nicht vorgestellt.
 
 331
 00:18:50,422 --> 00:18:53,550
-- Dr  Eric Gablehauser.
+- Dr. Eric Gablehauser.
 - Mary Cooper, Sheldons Mom.
 
 332
@@ -7108,7 +7108,7 @@ Danke, Mom.
 
 348
 00:19:51,983 --> 00:19:56,071
-Wird Dr  Gablehauser
+Wird Dr. Gablehauser
 bald mein neuer Daddy?
 
 349

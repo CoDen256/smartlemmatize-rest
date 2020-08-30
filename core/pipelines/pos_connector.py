@@ -2,6 +2,7 @@ from core.pipelines.abc.abstract_pipeline import Pipeline
 from core.executors.lemmatization.connector import LemmaConnector
 from core.data.pos import PartOfSpeech
 
+
 class PosConnector(Pipeline):
     def __init__(self):
         super().__init__()
