@@ -1,11 +1,9 @@
 class Connector:
-    def __init__(self, starter, finisher):
-        self.starter = starter
-        self.finisher = finisher
+    def __init__(self):
         self.connections = {}
 
     def add_connection(self, name, connection):
         self.connections[name] = connection
 
-    def connect(self, name):
-        self.connections[name](self.starter, self.finisher)
+    def connect(self, name, starter, finisher, last):
+        return self.connections[name](starter, finisher, last)

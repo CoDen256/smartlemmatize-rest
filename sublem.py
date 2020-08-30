@@ -5,7 +5,6 @@ from core.resource_manager import ResourceManager
 from core.pipelines import *
 
 
-
 class SubtitleLemmatizer:
     # imdb_id - id of movie on imdb.  https://www.imdb.com/  => search => url ../title/tt{ID}/...
     # season - season of movie
@@ -17,35 +16,35 @@ class SubtitleLemmatizer:
 
         starter = Starter(request=request)
         finisher = Finisher()
-        connector = Connector(starter, finisher)
+        connector = Connector()
 
-        connector.add_connection("NONE", self.create_all)
+        connector.add_connection("NO_SRT", self.create_srt)
         connector.add_connection("NO_LTC", self.create_ltc)
         connector.add_connection("ALL", self.load_ltc)
 
         if not manager.exists(ResourceManager.SRT, request):
-            connector.connect("NONE")
+            starter, finisher, last = connector.connect("NO_SRT", starter, finisher, None)
+            connector.connect("NO_LTC", starter, finisher, last)
         elif not manager.exists(ResourceManager.LTC, request):
-            connector.connect("NO_LTC")
+            connector.connect("NO_LTC", starter, finisher, starter.to(ResourceLoader(ResourceManager.SRT)))
         else:
-            connector.connect("ALL")
-        #connector.connect("NO_LTC")
+            connector.connect("ALL", starter, finisher, None)
+        # connector.connect("NO_LTC")
         starter.start()
 
         return finisher.result_data
 
-    def create_all(self, starter, finisher):
+    def create_srt(self, starter, finisher, last):
         fetcher_srt = SubtitleFetcher()
         unzipper_srt = SrtUnzipper()
         saver_srt = ResourceSaver(ResourceManager.SRT, Files.BYTE)
         decoder_srt = SrtDecoder(Files.DEFAULT_ENCODING)
 
         starter.to(saver_srt)
-        starter.to(fetcher_srt).to(unzipper_srt).to(saver_srt).to(decoder_srt) #TODO: continue
-        self.create_ltc(starter, finisher)
+        starter.to(fetcher_srt).to(unzipper_srt).to(saver_srt).to(decoder_srt)
+        return starter, finisher, decoder_srt
 
-    def create_ltc(self, starter, finisher):
-        srt_loader = ResourceLoader(ResourceManager.SRT)
+    def create_ltc(self, starter, finisher, srt_provider):  # either decoder, or loader
         purifier_srt = SrtPurifier(PureCodes.ALL)
         purifier_parse = SrtPurifier(PureCodes.DEFAULT | PureCodes.PARSE)
         preparer_srt = SrtPreparer(Constants.MAX_LENGTH, decapitalize=True)
@@ -56,15 +55,15 @@ class SubtitleLemmatizer:
         translator_ltc_json = Translator(Translators.LTC, Translators.JSON)
         saver_ltc = ResourceSaver(ResourceManager.LTC, Files.RAW)
 
-        starter.to(srt_loader, saver_ltc)
-        srt_loader.to(purifier_srt, purifier_parse)
+        starter.to(saver_ltc)
+        srt_provider.to(purifier_srt, purifier_parse)
 
         purifier_parse.to(allocator_ltc)
 
-        purifier_srt.to(preparer_srt).to(fetcher).to(translator_json_pos)
-        translator_json_pos.to(connector_pos).to(allocator_ltc).to(translator_ltc_json).to(saver_ltc).to(finisher)
+        purifier_srt.to(preparer_srt).to(fetcher).to(translator_json_pos) \
+            .to(connector_pos).to(allocator_ltc).to(translator_ltc_json).to(saver_ltc).to(finisher)
 
-    def load_ltc(self, starter, finisher):
+    def load_ltc(self, starter, finisher, last):
         starter.to(ResourceLoader(ResourceManager.LTC)).to(finisher)
 
 
@@ -78,7 +77,8 @@ def main(id, e, s):
     sublem = SubtitleLemmatizer()
     sublem.lemmatize(req)
 
+
 id = "0898266"
 id2 = "5753856"
 for i in range(1, 10):
-    main(id2, i, 1)
+    main(id, i, 1)
