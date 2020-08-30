@@ -78,7 +78,8 @@ def main(id, e, s):
 
     remove_old_if_no_memory(hours=7*24, megabytes=400)
 
-id = "0898266"
-id2 = "5753856"
-for i in range(5):
-    main(id2, i, 1)
+# big bang theory = "0898266"
+# dark = "5753856"
+
+if __name__ == '__main__':
+    pass
