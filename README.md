@@ -13,9 +13,11 @@ If a starts executing the query, it will receive, then upon execution it will be
 waits for all incoming pipelines to pass their results, to start own execution.
 E.g. A => B, and C => B, (looks like a.to(b);c.to(b) OR b.from_(a, c))
 First executes A, then C and then B based on the outputs of incoming lines.
+
 The idea to build condition pipelines in runtime in dependence on conditions was rejected, because the in-/outcoming 
 pipelines lists should be deterministic. If the connections are being established upon execution of condition, then, 
 all branches, that are executed on one condition branch or another should have been connected in runtime as well, 
 which brings a lot of problems.
 
-Instead the PipelineBuilder was introduced.
+Instead the Connector was introduced, which operates on low level pipeline connections, and just calls functions
+of their connection
