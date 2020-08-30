@@ -3,7 +3,7 @@ from core.data import Request
 from core.data.enums import Files, PureCodes, Constants, Translators
 from core.resource_manager import ResourceManager
 from core.pipelines import *
-
+from memory_manager import remove_old_if_no_memory
 
 class SubtitleLemmatizer:
     # imdb_id - id of movie on imdb.  https://www.imdb.com/  => search => url ../title/tt{ID}/...
@@ -31,7 +31,6 @@ class SubtitleLemmatizer:
             connector.connect("ALL", starter, finisher, None)
         # connector.connect("NO_LTC")
         starter.start()
-
         return finisher.result_data
 
     def create_srt(self, starter, finisher, last):
@@ -77,18 +76,9 @@ def main(id, e, s):
     sublem = SubtitleLemmatizer()
     sublem.lemmatize(req)
 
+    remove_old_if_no_memory(hours=7*24, megabytes=400)
 
 id = "0898266"
 id2 = "5753856"
-succes = 0
-for i in range(1, 18):
-    for j in range(1, 5):
-        try:
-            main(id, i, j)
-            succes += 1
-        except Exception as e:
-            print(e)
-print("SUCCESS:", succes)
-#main(id, 7, 3)
-#for i in range(1, 4):
-#main(id, 13, 1)
+for i in range(5):
+    main(id2, i, 1)
