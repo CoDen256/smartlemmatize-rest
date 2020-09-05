@@ -17,7 +17,7 @@ class Fetcher:
 
         log_process("Responses", responses)
         for r in responses:
-            if (r is not None and not r.ok):
+            if r is not None and not r.ok:
                 log_process("Response", r, "is not ok", r.reason)
 
         return responses
