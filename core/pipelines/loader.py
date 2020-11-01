@@ -20,4 +20,4 @@ class ResourceLoader(Pipeline):
 
         path = ResourceManager.path(self.resource, request)
 
-        self.submit(srt=Reader.read_raw(path, enc=request.encoding))
+        self.submit(data=Reader.read_raw(path, enc=request.encoding))

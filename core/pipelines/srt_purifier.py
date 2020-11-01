@@ -10,7 +10,7 @@ class SrtPurifier(Pipeline):
         self.stages = stages
 
     def execute(self, incoming_data):
-        srt = incoming_data.get('srt')
+        srt = incoming_data.get('data')
         assert isinstance(srt, str)
 
         purifier = Purifier(self.stages)

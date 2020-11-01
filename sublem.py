@@ -4,6 +4,8 @@ from core.data.enums import Files, PureCodes, Constants, Translators
 from core.resource_manager import ResourceManager
 from core.pipelines import *
 from memory_manager import remove_old_if_no_memory
+from nltk import grammar, parse
+
 
 class SubtitleLemmatizer:
     # imdb_id - id of movie on imdb.  https://www.imdb.com/  => search => url ../title/tt{ID}/...
@@ -31,7 +33,7 @@ class SubtitleLemmatizer:
             connector.connect("ALL", starter, finisher, None)
         # connector.connect("NO_LTC")
         starter.start()
-        return finisher.result_data
+        return finisher.result_data.get("data")
 
     def create_srt(self, starter, finisher, last):
         fetcher_srt = SubtitleFetcher()
@@ -72,7 +74,7 @@ def run(plain):
     log_process("\n\n" + "-" * 30 + f"\n\n {req} is started the process")
 
     sublem = SubtitleLemmatizer()
-    sublem.lemmatize(req)
+    return sublem.lemmatize(req)
 
     #remove_old_if_no_memory(hours=7*24, megabytes=400)
 
@@ -81,10 +83,12 @@ def run(plain):
 
 if __name__ == '__main__':
     id = "0898266"
-    e = 1
-    s = 1
+    e = 10
+    s = 8
     plain = f"id={id}&e={e}&s={s}"
-    run(plain)
+    print(plain)
+    result = run(plain)
+    print(result)
 # # rename to main.py
 # import sys
 # sys.path.insert(1, '/home/sublem/projects/lemmatizer/SubtitleLemmatizer')

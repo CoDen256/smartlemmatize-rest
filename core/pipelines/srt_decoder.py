@@ -11,4 +11,4 @@ class SrtDecoder(Pipeline):
         encoding = incoming_data.get('encoding')
         assert isinstance(data, bytes)
 
-        self.submit(srt=Decoder(encoding).decode(data))
+        self.submit(data=Decoder(encoding).decode(data))
