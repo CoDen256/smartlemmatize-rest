@@ -2,7 +2,7 @@ from bottle import route, run, template, request, response
 from sublem import launch
 
 
-@route('/sublem/ltc')
+@route('/ltc')
 def index():
     id = request.query.id
     season = request.query.s
