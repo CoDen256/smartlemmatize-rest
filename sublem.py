@@ -68,26 +68,26 @@ class SubtitleLemmatizer:
         starter.to(ResourceLoader(ResourceManager.LTC)).to(finisher)
 
 
-def run(plain):
-    req = Request.of(plain)
+def launch(id, season, episode):
+    req = Request(id, season, episode)
 
     log_process("\n\n" + "-" * 30 + f"\n\n {req} is started the process")
 
     sublem = SubtitleLemmatizer()
-    return sublem.lemmatize(req)
+    remove_old_if_no_memory(hours=7*24, megabytes=400)
 
-    #remove_old_if_no_memory(hours=7*24, megabytes=400)
+    return sublem.lemmatize(req)
 
 # big bang theory = "0898266"
 # dark = "5753856"
 
 if __name__ == '__main__':
     id = "0898266"
-    e = 10
-    s = 8
+    e = 9
+    s = 3
     plain = f"id={id}&e={e}&s={s}"
     print(plain)
-    result = run(plain)
+    result = launch(plain)
     print(result)
 # # rename to main.py
 # import sys
